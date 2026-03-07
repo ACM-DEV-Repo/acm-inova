@@ -16,6 +16,7 @@ import { ContactV2 } from '@/components/landing-v2/ContactV2';
 import { BeforeAfterV2 } from '@/components/landing-v2/BeforeAfterV2';
 import { ProcessV2 } from '@/components/landing-v2/ProcessV2';
 import { ServicesV2 } from '@/components/landing-v2/ServicesV2';
+import { ScheduleV2 } from '@/components/landing-v2/ScheduleV2';
 import { VideoV2 } from '@/components/landing-v2/VideoV2';
 import { VideoCarouselV2 } from '@/components/landing-v2/VideoCarouselV2';
 import { WhyChooseV2 } from '@/components/landing-v2/WhyChooseV2';
@@ -48,6 +49,7 @@ const renderSection = (sectionId: string, content: LPContent, lpKey: string, ind
     case 'beforeAfter': return <BeforeAfterV2 key={key} data={content.beforeAfter} lpKey={lpKey} couponCode={couponCode} />;
     case 'process': return <ProcessV2 key={key} data={content.process} lpKey={lpKey} couponCode={couponCode} />;
     case 'services': return <ServicesV2 key={key} data={content.services} lpKey={lpKey} couponCode={couponCode} />;
+    case 'schedule': return <ScheduleV2 key={key} data={content.schedule} lpKey={lpKey} couponCode={couponCode} />;
     case 'video': return <VideoV2 key={key} data={content.video} lpKey={lpKey} couponCode={couponCode} />;
     case 'videoCarousel': return <VideoCarouselV2 key={key} data={content.videoCarousel} lpKey={lpKey} couponCode={couponCode} />;
     case 'whyChoose': return <WhyChooseV2 key={key} data={content.whyChoose} lpKey={lpKey} couponCode={couponCode} />;
@@ -86,7 +88,19 @@ export const LandingPageV2Content = () => {
   const hasMenu = content.globalMenu?.enabled;
 
   return (
-    <main className="min-h-screen" style={gradientStyle}>
+    <main className="min-h-screen lp-v2-content" style={gradientStyle}>
+      <style>{`
+        .lp-v2-content > div > section {
+          padding-top: var(--ds-section-py, 4rem);
+          padding-bottom: var(--ds-section-py, 4rem);
+        }
+        @media (min-width: 768px) {
+          .lp-v2-content > div > section {
+            padding-top: calc(var(--ds-section-py, 4rem) * 1.5);
+            padding-bottom: calc(var(--ds-section-py, 4rem) * 1.5);
+          }
+        }
+      `}</style>
       <TrackingHeadV2 tracking={resolveTrackingV2(content.tracking, globalTracking)} seo={content.seo} lpKey={lpKey} />
       {hasMenu && <GlobalMenuV2 data={content.globalMenu} footer={content.footer} />}
       <div className={hasMenu ? 'pt-16' : ''}>

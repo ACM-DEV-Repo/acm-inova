@@ -71,6 +71,7 @@ export interface HeroSection {
   ctaSecondary: { text: string; link: string };
   imageDesktop: string;
   imageMobile: string;
+  imagePosition?: 'top' | 'center' | 'bottom';
   footerCta?: SectionFooterCTA;
 }
 
@@ -230,6 +231,24 @@ export interface FormSection {
   footerCta?: SectionFooterCTA;
   successAction?: FormSuccessAction;
   webhookUrl?: string;
+}
+
+export interface ScheduleSection {
+  enabled?: boolean;
+  title: string;
+  subtitle?: string;
+  days: Array<{
+    id: string;
+    date: string;
+    label: string;
+    items: Array<{
+      time: string;
+      title: string;
+      speaker?: string;
+      location?: string;
+    }>;
+  }>;
+  footerCta?: SectionFooterCTA;
 }
 
 export interface ForWhomSection {
@@ -418,6 +437,7 @@ export interface LPContent {
   faq: FaqSection;
   form: FormSection;
   forWhom: ForWhomSection;
+  schedule: ScheduleSection;
   footer: FooterSection;
 
   design: DesignSettings;

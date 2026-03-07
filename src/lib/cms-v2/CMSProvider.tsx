@@ -233,6 +233,16 @@ export const CMSProviderV2 = ({ children, lpKey }: { children: ReactNode; lpKey:
       root.style.setProperty('--ds-border-opacity', bgLightness > 60 ? '0.5' : '0.14');
     }
 
+    // Vertical spacing between sections
+    const spacingMap: Record<string, string> = {
+      small: '3rem',
+      medium: '4rem',
+      large: '6rem',
+    };
+    if (design.verticalSpacing && spacingMap[design.verticalSpacing]) {
+      root.style.setProperty('--ds-section-py', spacingMap[design.verticalSpacing]);
+    }
+
     // Font family
     if (design.fontFamily) {
       root.style.setProperty('--ds-font-family', design.fontFamily);

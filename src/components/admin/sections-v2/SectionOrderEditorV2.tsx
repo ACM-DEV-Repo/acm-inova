@@ -43,6 +43,7 @@ const SECTION_LABELS: Record<string, string> = {
   beforeAfter: 'Antes e Depois',
   process: 'Processo',
   services: 'Servicos',
+  schedule: 'Programacao',
   video: 'Video',
   videoCarousel: 'Carrossel de Videos',
   whyChoose: 'Por que Escolher',

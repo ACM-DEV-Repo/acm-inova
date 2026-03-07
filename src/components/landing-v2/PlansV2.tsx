@@ -42,7 +42,15 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
           <CountdownTimerV2 settings={conversion.countdown} lpKey={lpKey} />
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-8 md:mt-12">
+        <div className={`grid grid-cols-1 gap-6 md:gap-8 mt-8 md:mt-12 ${
+          (() => {
+            const count = data.items?.length ?? 0;
+            if (count === 1) return 'md:grid-cols-1 max-w-sm mx-auto';
+            if (count === 2) return 'md:grid-cols-2 max-w-3xl mx-auto';
+            if (count === 3) return 'md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto';
+            return 'md:grid-cols-2 lg:grid-cols-4';
+          })()
+        }`}>
           {data.items?.map((plan) => {
             const IconComponent = planIcons[plan.id as keyof typeof planIcons] || Medal;
             const tierColor = tierColors[plan.id as keyof typeof tierColors];

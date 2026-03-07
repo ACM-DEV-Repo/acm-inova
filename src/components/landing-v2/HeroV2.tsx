@@ -8,15 +8,23 @@ type HeroV2Props = {
   couponCode?: string;
 };
 
+const BG_POSITION: Record<string, string> = {
+  top: 'bg-top',
+  center: 'bg-center',
+  bottom: 'bg-bottom',
+};
+
 export const HeroV2 = ({ data, lpKey, couponCode }: HeroV2Props) => {
   if (!data || data.enabled === false) return null;
+
+  const posClass = BG_POSITION[data.imagePosition || 'center'] || 'bg-center';
 
   return (
     <section className="relative w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center px-4 md:px-6 py-16 md:py-24 overflow-hidden">
       {data.imageDesktop && (
         <>
-          <div className="absolute inset-0 bg-cover bg-center hidden md:block" style={{ backgroundImage: `url(${data.imageDesktop})` }} />
-          {data.imageMobile && (<div className="absolute inset-0 bg-cover bg-center md:hidden" style={{ backgroundImage: `url(${data.imageMobile})` }} />)}
+          <div className={`absolute inset-0 bg-cover ${posClass} hidden md:block`} style={{ backgroundImage: `url(${data.imageDesktop})` }} />
+          {data.imageMobile && (<div className={`absolute inset-0 bg-cover ${posClass} md:hidden`} style={{ backgroundImage: `url(${data.imageMobile})` }} />)}
           <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--ds-color-bg))]/40 to-[hsl(var(--ds-color-bg))]/60 backdrop-blur-sm" />
         </>
       )}

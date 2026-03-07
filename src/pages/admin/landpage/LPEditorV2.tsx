@@ -44,6 +44,7 @@ import {
   Menu,
   Mic2,
   Trophy,
+  CalendarDays,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { SaveStatusHUDV2 } from '@/components/admin/shared-v2/SaveStatusHUDV2';
@@ -80,6 +81,7 @@ import {
   GlobalMenuEditorV2,
   SpeakersEditorV2,
   SponsorsEditorV2,
+  ScheduleEditorV2,
 } from '@/components/admin/sections-v2';
 
 // ============================================================
@@ -132,6 +134,7 @@ const SECTIONS: SectionGroup[] = [
       { key: 'beforeAfter', label: 'Antes e Depois', icon: ImageIcon },
       { key: 'process', label: 'Processo', icon: Route },
       { key: 'services', label: 'Servicos', icon: ShoppingBag },
+      { key: 'schedule', label: 'Programacao', icon: CalendarDays },
       { key: 'video', label: 'Video', icon: Video },
       { key: 'videoCarousel', label: 'Carrossel Videos', icon: PlayCircle },
       { key: 'whyChoose', label: 'Por que Escolher', icon: CheckCircle2 },
@@ -248,6 +251,7 @@ export default function LPEditorV2() {
       case 'form': return <FormEditorV2 {...editorProps} />;
       case 'speakers': return <SpeakersEditorV2 {...editorProps} />;
       case 'sponsors': return <SponsorsEditorV2 {...editorProps} />;
+      case 'schedule': return <ScheduleEditorV2 {...editorProps} />;
       case 'tracking': return <TrackingEditorV2 {...editorProps} />;
       case 'seo': return <SEOEditorV2 {...editorProps} />;
       case 'design': return <DesignEditorV2 {...editorProps} />;

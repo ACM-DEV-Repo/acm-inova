@@ -31,6 +31,7 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
     ctaSecondary: { text: 'Saiba mais', link: '#beneficios' },
     imageDesktop: '',
     imageMobile: '',
+    imagePosition: 'center',
     footerCta: { ...defaultFooterCta },
   },
 
@@ -106,6 +107,24 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
       { text: '', enabled: true },
       { text: '', enabled: true },
       { text: '', enabled: true },
+    ],
+    footerCta: { ...defaultFooterCta },
+  },
+
+  // ==================== SCHEDULE ====================
+  schedule: {
+    enabled: false,
+    title: '',
+    subtitle: '',
+    days: [
+      {
+        id: 'dia-1',
+        date: '',
+        label: 'Dia 1',
+        items: [
+          { time: '09:00', title: '', speaker: '', location: '' },
+        ],
+      },
     ],
     footerCta: { ...defaultFooterCta },
   },

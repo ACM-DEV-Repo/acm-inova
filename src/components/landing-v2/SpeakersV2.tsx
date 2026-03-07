@@ -65,8 +65,9 @@ const SpeakerCard = memo(({
             className={`text-muted-foreground leading-relaxed mt-4 flex-1 ${
               isFeatured ? 'text-base md:text-lg' : 'text-sm md:text-base'
             }`}
-            dangerouslySetInnerHTML={{ __html: renderRichText(speaker.bio) }}
-          />
+          >
+            {renderRichText(speaker.bio)}
+          </div>
         )}
 
         {/* Socials */}
@@ -132,10 +133,9 @@ export const SpeakersV2 = memo(({ data, lpKey, couponCode }: Props) => {
               </h2>
             )}
             {data.subtitle && (
-              <p
-                className="text-muted-foreground text-lg md:text-xl mt-4 max-w-3xl mx-auto"
-                dangerouslySetInnerHTML={{ __html: renderRichText(data.subtitle) }}
-              />
+              <p className="text-muted-foreground text-lg md:text-xl mt-4 max-w-3xl mx-auto">
+                {renderRichText(data.subtitle)}
+              </p>
             )}
           </div>
         )}
