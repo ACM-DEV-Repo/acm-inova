@@ -287,7 +287,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
                 className="w-32 h-32 object-contain mx-auto mb-6"
               />
             ) : (
-              <CheckCircle className="w-20 h-20 text-emerald-500 mx-auto mb-6" />
+              <CheckCircle className="w-20 h-20 text-[hsl(var(--ds-color-accent))] mx-auto mb-6" />
             )}
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
               {data?.successAction?.successTitle || 'Obrigado!'}

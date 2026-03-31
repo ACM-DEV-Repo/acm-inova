@@ -86,7 +86,7 @@ export const SponsorsV2 = memo(({ data, lpKey, couponCode }: Props) => {
                   {tier.items.map((sponsor, sponsorIndex) => {
                     const cardContent = (
                       <div
-                        className={`glass-card flex items-center justify-center transition-all duration-300 hover:scale-[1.03] ${LOGO_PADDING[logoHeight]} ${
+                        className={`glass-card flex items-center justify-center transition-transform duration-300 hover:scale-[1.03] ${LOGO_PADDING[logoHeight]} ${
                           hasColor
                             ? 'ring-1 ring-opacity-40'
                             : ''

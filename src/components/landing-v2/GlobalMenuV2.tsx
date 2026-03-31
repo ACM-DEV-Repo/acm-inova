@@ -1,4 +1,5 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import type { GlobalMenuSettings, FooterSection } from '@/lib/cms-v2/cms-types';
 
 interface GlobalMenuV2Props {
@@ -7,9 +8,10 @@ interface GlobalMenuV2Props {
 }
 
 export const GlobalMenuV2 = memo(({ data, footer }: GlobalMenuV2Props) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   if (!data?.enabled) return null;
 
-  // Logo: explicit logoUrl > footer logo > footer logoDesktop
   const logoSrc = data.logoUrl?.trim() || footer?.logo?.trim() || footer?.logoDesktop?.trim() || '';
   const links = data.links || [];
 
@@ -27,7 +29,7 @@ export const GlobalMenuV2 = memo(({ data, footer }: GlobalMenuV2Props) => {
           </a>
         )}
 
-        {/* NAV LINKS */}
+        {/* NAV LINKS — Desktop */}
         {links.length > 0 && (
           <nav className="hidden md:flex items-center gap-6">
             {links.map((link, i) => (
@@ -41,7 +43,35 @@ export const GlobalMenuV2 = memo(({ data, footer }: GlobalMenuV2Props) => {
             ))}
           </nav>
         )}
+
+        {/* Hamburger — Mobile */}
+        {links.length > 0 && (
+          <button
+            type="button"
+            className="md:hidden p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-[hsl(var(--ds-color-surface))]/50 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        )}
       </div>
+
+      {/* Mobile menu dropdown */}
+      {mobileOpen && links.length > 0 && (
+        <nav className="md:hidden bg-[hsl(var(--ds-color-bg))]/95 backdrop-blur-xl border-b border-[hsl(var(--ds-border-color))]/20 px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-200">
+          {links.map((link, i) => (
+            <a
+              key={i}
+              href={link.url}
+              onClick={() => setMobileOpen(false)}
+              className="block text-sm font-medium text-foreground/80 hover:text-foreground py-2 transition-colors"
+            >
+              {link.text}
+            </a>
+          ))}
+        </nav>
+      )}
     </header>
   );
 });

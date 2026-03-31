@@ -131,7 +131,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
   return (
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4"
-      onClick={dismiss}
+      onClick={dismiss} aria-label="Fechar"
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in duration-300" />
@@ -145,7 +145,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
       >
         {/* Close */}
         <button
-          onClick={dismiss}
+          onClick={dismiss} aria-label="Fechar"
           className="absolute top-4 right-4 z-20 p-2 rounded-full text-muted-foreground/70 hover:text-foreground hover:bg-muted/30 transition-colors"
         >
           <X className="h-5 w-5" />
@@ -182,7 +182,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
               {/* CTA */}
               <a
                 href={ctaUrl}
-                onClick={dismiss}
+                onClick={dismiss} aria-label="Fechar"
                 className={`inline-block w-full py-5 rounded-full font-bold text-xl uppercase tracking-wide transition-all duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-[1.02] hover:shadow-[0_16px_40px_hsl(var(--ds-color-accent)/0.45)] ${
                   !imageLeft ? 'text-center' : 'text-center'
                 }`}
@@ -192,7 +192,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
 
               {/* Dismiss text */}
               <button
-                onClick={dismiss}
+                onClick={dismiss} aria-label="Fechar"
                 className="text-sm text-muted-foreground/60 hover:text-muted-foreground transition-colors underline underline-offset-2 w-full"
               >
                 {data.dismissText || 'Nao, obrigado'}

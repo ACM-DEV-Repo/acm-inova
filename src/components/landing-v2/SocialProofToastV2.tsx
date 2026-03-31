@@ -102,8 +102,8 @@ export const SocialProofToastV2 = memo(({ data, lpKey }: SocialProofToastV2Props
         }`}
       >
         <div className="flex items-center gap-3 bg-background border border-border/50 rounded-xl shadow-lg px-4 py-3 max-w-xs backdrop-blur-md">
-          <div className="shrink-0 w-8 h-8 rounded-full bg-emerald-500/15 flex items-center justify-center">
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+          <div className="shrink-0 w-8 h-8 rounded-full bg-[hsl(var(--ds-color-accent)/0.15)] flex items-center justify-center">
+            <CheckCircle2 className="h-4 w-4 text-[hsl(var(--ds-color-accent))]" />
           </div>
           <div className="min-w-0">
             {item.message ? (
