@@ -503,24 +503,23 @@ export default function LandingPagesV2() {
               <Label>Nome da Nova LP</Label>
               <Input
                 value={duplicateData.name}
-                onChange={(e) => setDuplicateData(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="Ex: LP 04 - Copia"
+                onChange={(e) => {
+                  const name = e.target.value;
+                  const slug = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+                  setDuplicateData({ name, slug, lp_key: slug });
+                }}
+                placeholder="Ex: Summit Saude 2026 - Copia"
               />
             </div>
             <div className="space-y-2">
-              <Label>Chave Interna (lp_key)</Label>
-              <Input
-                value={duplicateData.lp_key}
-                onChange={(e) => setDuplicateData(prev => ({ ...prev, lp_key: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
-                placeholder="Ex: lp04"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Slug (URL)</Label>
+              <Label>Endereco da pagina</Label>
               <Input
                 value={duplicateData.slug}
-                onChange={(e) => setDuplicateData(prev => ({ ...prev, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
-                placeholder="Ex: campanha-verao"
+                onChange={(e) => {
+                  const slug = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+                  setDuplicateData(prev => ({ ...prev, slug, lp_key: slug }));
+                }}
+                placeholder="Gerado automaticamente"
               />
               <p className="text-xs text-muted-foreground">URL: /l/{duplicateData.slug || 'slug'}</p>
             </div>

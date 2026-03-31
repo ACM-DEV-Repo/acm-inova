@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useAdminEditorV2Production } from '@/hooks/cms/useAdminEditorV2Production';
+import { fetchLPByRef, updateLPStatus } from '@/lib/cms-v2/cms-api';
 import { Button } from '@/components/ui/button';
 import {
   Collapsible,
@@ -45,7 +46,9 @@ import {
   Mic2,
   Trophy,
   CalendarDays,
+  Rocket,
 } from 'lucide-react';
+import type { LPStatus } from '@/lib/cms-v2/cms-types';
 import { toast } from 'sonner';
 import { SaveStatusHUDV2 } from '@/components/admin/shared-v2/SaveStatusHUDV2';
 import type { LucideIcon } from 'lucide-react';
@@ -155,6 +158,13 @@ export default function LPEditorV2() {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('hero');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [lpStatus, setLpStatus] = useState<LPStatus>('draft');
+
+  useEffect(() => {
+    if (lpKey) {
+      fetchLPByRef(lpKey).then(lp => { if (lp) setLpStatus(lp.status); });
+    }
+  }, [lpKey]);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     SECTIONS.forEach((g) => {
@@ -359,6 +369,21 @@ export default function LPEditorV2() {
           </h1>
 
           <div className="flex items-center gap-3">
+            {lpStatus === 'draft' && (
+              <Button
+                size="sm"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5"
+                onClick={async () => {
+                  if (isDirty) { toast.error('Salve as alteracoes antes de publicar'); return; }
+                  const ok = await updateLPStatus(lpKey, 'active');
+                  if (ok) { setLpStatus('active'); toast.success('LP publicada!'); }
+                  else toast.error('Erro ao publicar');
+                }}
+              >
+                <Rocket className="h-4 w-4" />
+                Publicar
+              </Button>
+            )}
             <Button variant="outline" size="sm" onClick={() => setPreviewOpen(true)}>
               <Eye className="h-4 w-4 mr-1" />
               Preview
