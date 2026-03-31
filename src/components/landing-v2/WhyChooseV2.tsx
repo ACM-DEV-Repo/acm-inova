@@ -16,7 +16,7 @@ export const WhyChooseV2 = ({ data, lpKey, couponCode }: WhyChooseV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section id="whyChoose" className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}

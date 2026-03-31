@@ -12,7 +12,7 @@ export const BeforeAfterV2 = ({ data, lpKey, couponCode }: BeforeAfterV2Props) =
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
+    <section id="beforeAfter" className="w-full py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
       {/* Background Image opcional */}
       {(data.imageDesktop || data.imageMobile) && (
         <div className="absolute inset-0 -z-10 opacity-10">

@@ -20,7 +20,7 @@ export const HeroV2 = ({ data, lpKey, couponCode }: HeroV2Props) => {
   const posClass = BG_POSITION[data.imagePosition || 'center'] || 'bg-center';
 
   return (
-    <section className="relative w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center px-4 md:px-6 py-16 md:py-24 overflow-hidden">
+    <section id="hero" className="relative w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center px-4 md:px-6 py-16 md:py-24 overflow-hidden">
       {data.imageDesktop && (
         <>
           <div className={`absolute inset-0 bg-cover ${posClass} hidden md:block`} style={{ backgroundImage: `url(${data.imageDesktop})` }} />

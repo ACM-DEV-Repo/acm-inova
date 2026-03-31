@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2, GripVertical, Star, X } from "lucide-react";
 import { DebouncedInputV2 } from "@/components/admin/shared-v2/DebouncedInputV2";
+import { IconPickerV2 } from "@/components/admin/shared-v2/IconPickerV2";
 import { SectionCTAEditorV2 } from "@/components/admin/shared-v2/SectionCTAEditorV2";
 import type { PlansSection } from "@/lib/cms-v2/cms-types";
 import type { V2SectionEditorProps } from "./types";
@@ -77,7 +78,7 @@ export const PlansEditorV2 = memo(({
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       {/* Header + Enabled Toggle */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">Planos</h2>
+        <h2 className="text-2xl font-bold text-foreground">Produtos</h2>
         <div className="flex items-center space-x-2">
           <Switch
             checked={plans?.enabled !== false}
@@ -94,7 +95,7 @@ export const PlansEditorV2 = memo(({
           value={plans?.title || ''}
           onDebouncedChange={(v) => updateField('plans', 'title', v)}
           className="input-admin"
-          placeholder="Ex: Escolha seu plano"
+          placeholder="Ex: Nossos Produtos"
         />
       </div>
 
@@ -102,17 +103,17 @@ export const PlansEditorV2 = memo(({
       <div className="bg-muted/20 rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <Label className="text-foreground font-semibold text-lg">
-            Planos ({items.length})
+            Produtos ({items.length})
           </Label>
           <Button type="button" variant="outline" size="sm" onClick={addItem}>
             <Plus className="h-4 w-4 mr-1" />
-            Adicionar Plano
+            Adicionar Produto
           </Button>
         </div>
 
         {items.length === 0 && (
           <p className="text-sm text-muted-foreground text-center py-8 border border-dashed rounded-lg">
-            Nenhum plano cadastrado. Clique em &quot;Adicionar Plano&quot; para criar.
+            Nenhum produto cadastrado. Clique em &quot;Adicionar Produto&quot; para criar.
           </p>
         )}
 
@@ -129,7 +130,7 @@ export const PlansEditorV2 = memo(({
                 <div className="flex items-center gap-2">
                   <GripVertical className="h-4 w-4 text-muted-foreground" />
                   <span className="font-medium text-foreground">
-                    {item.name || `Plano ${index + 1}`}
+                    {item.name || `Produto ${index + 1}`}
                   </span>
                   {item.recommended && (
                     <Badge variant="default" className="gap-1">
@@ -159,10 +160,17 @@ export const PlansEditorV2 = memo(({
                 </div>
               </div>
 
-              {/* Dados Básicos */}
-              <div className="grid md:grid-cols-3 gap-4">
+              {/* Icone + Dados Basicos */}
+              <div className="grid md:grid-cols-4 gap-4">
                 <div>
-                  <Label className="text-foreground font-semibold mb-2 block">Nome do Plano</Label>
+                  <Label className="text-foreground font-semibold mb-2 block">Icone</Label>
+                  <IconPickerV2
+                    value={item.icon || ''}
+                    onChange={(v) => updateItem(index, 'icon', v)}
+                  />
+                </div>
+                <div>
+                  <Label className="text-foreground font-semibold mb-2 block">Nome do Produto</Label>
                   <DebouncedInputV2
                     value={item.name || ''}
                     onDebouncedChange={(v) => updateItem(index, 'name', v)}
@@ -221,8 +229,17 @@ export const PlansEditorV2 = memo(({
                 </div>
               </div>
 
-              {/* Texto de Suporte e Link */}
-              <div className="grid md:grid-cols-2 gap-4">
+              {/* CTA Text, Texto de Suporte e Link */}
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <Label className="text-foreground font-semibold mb-2 block">Texto do Botao</Label>
+                  <DebouncedInputV2
+                    value={item.ctaText || ''}
+                    onDebouncedChange={(v) => updateItem(index, 'ctaText', v)}
+                    className="input-admin"
+                    placeholder="Ex: Comprar"
+                  />
+                </div>
                 <div>
                   <Label className="text-foreground font-semibold mb-2 block">Texto de Suporte</Label>
                   <DebouncedInputV2
@@ -287,7 +304,7 @@ export const PlansEditorV2 = memo(({
 
       {/* Footer CTA */}
       <SectionCTAEditorV2
-        sectionTitle="Planos"
+        sectionTitle="Produtos"
         ctaData={plans?.footerCta}
         onUpdate={(updates) => {
           updateSection('plans', {

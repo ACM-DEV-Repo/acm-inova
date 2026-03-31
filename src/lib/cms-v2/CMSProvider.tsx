@@ -245,17 +245,29 @@ export const CMSProviderV2 = ({ children, lpKey }: { children: ReactNode; lpKey:
       root.style.setProperty('--ds-section-py', spacingMap[design.verticalSpacing]);
     }
 
-    // Font family — sanitized (whitelist pattern, no injection)
+    // Font family — sanitized via whitelist + Google Fonts preload
     if (design.fontFamily) {
-      const SAFE_FONT_PATTERN = /^[a-zA-Z0-9\s,\-']+$/;
-      const safeFontFamily = SAFE_FONT_PATTERN.test(design.fontFamily)
-        ? design.fontFamily
-        : 'Inter, sans-serif';
+      const SAFE_FONTS = ['Inter', 'Roboto', 'Poppins', 'Montserrat', 'Lato', 'Open Sans', 'Nunito', 'Raleway'];
+      const fontName = SAFE_FONTS.find(f => design.fontFamily.includes(f)) || 'Inter';
+      const safeFontFamily = `${fontName}, sans-serif`;
       root.style.setProperty('--ds-font-family', safeFontFamily);
+
       // Scoped to LP content only — do NOT set on document.body (pollutes admin)
       const lpContent = document.querySelector('.lp-v2-content') as HTMLElement | null;
       if (lpContent) {
         lpContent.style.fontFamily = safeFontFamily;
+      }
+
+      // Inject Google Fonts stylesheet if not Inter (Inter is system-available on most devices)
+      if (fontName !== 'Inter') {
+        const fontId = `gfonts-${fontName.replace(/\s+/g, '-').toLowerCase()}`;
+        if (!document.getElementById(fontId)) {
+          const link = document.createElement('link');
+          link.id = fontId;
+          link.rel = 'stylesheet';
+          link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}:wght@300;400;500;600;700&display=swap`;
+          document.head.appendChild(link);
+        }
       }
     }
   }, [content]);

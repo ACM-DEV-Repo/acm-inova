@@ -5,6 +5,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth scroll for anchor links + offset for fixed menu */
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 /* ================================================================
    ACM Design System — Apple Store Vitrified Glass
    Fundo CLARO, glass translúcido, elegância máxima.

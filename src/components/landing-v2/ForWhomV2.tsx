@@ -12,7 +12,7 @@ export const ForWhomV2 = ({ data, lpKey, couponCode }: ForWhomV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section id="forWhom" className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>

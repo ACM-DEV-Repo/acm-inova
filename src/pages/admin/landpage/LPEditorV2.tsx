@@ -124,7 +124,7 @@ const SECTIONS: SectionGroup[] = [
       { key: 'hero', label: 'Hero', icon: Sparkles },
       { key: 'benefits', label: 'Beneficios', icon: Award },
       { key: 'howItWorks', label: 'Como Funciona', icon: Compass },
-      { key: 'plans', label: 'Planos', icon: CreditCard },
+      { key: 'plans', label: 'Produtos', icon: CreditCard },
       { key: 'testimonials', label: 'Depoimentos', icon: MessageCircle },
       { key: 'kpis', label: 'KPIs', icon: BarChart3 },
       { key: 'speakers', label: 'Palestrantes', icon: Mic2 },

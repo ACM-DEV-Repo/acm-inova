@@ -1,6 +1,7 @@
 import { LPContent, ConversionSettings } from "@/lib/cms-v2/cms-types";
 import { applyUTMv2, applyCoupon } from "@/lib/cms-v2/utm-v2";
-import { Medal, Award, Crown, Gem, Check } from "lucide-react";
+import { resolveIcon } from "@/lib/cms-v2/iconResolver";
+import { Check, Package } from "lucide-react";
 import { SectionCTAV2 } from "./SectionCTAV2";
 import { CountdownTimerV2 } from "./CountdownTimerV2";
 
@@ -11,27 +12,12 @@ type PlansV2Props = {
   conversion?: ConversionSettings;
 };
 
-const planIcons = {
-  bronze: Medal,
-  silver: Award,
-  gold: Crown,
-  diamond: Gem,
-};
-
-// Cores metalicas por tier
-const tierColors: Record<string, string> = {
-  bronze: '#CD7F32',
-  silver: '#C0C0C0',
-  gold: '#FFD700',
-  diamond: '#B9F2FF',
-};
-
 
 export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section id="plans" className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
@@ -52,8 +38,7 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
           })()
         }`}>
           {data.items?.map((plan) => {
-            const IconComponent = planIcons[plan.id as keyof typeof planIcons] || Medal;
-            const tierColor = tierColors[plan.id as keyof typeof tierColors];
+            const IconComponent = resolveIcon(plan.icon, Package);
 
               return (
               <div key={plan.id} className={`glass-card p-8 md:p-10 flex flex-col hover:scale-[1.02] transition-all duration-300 relative ${plan.recommended ? 'ring-2 ring-[hsl(var(--ds-color-accent))] shadow-[0_0_30px_hsl(var(--ds-color-accent)/0.3)] scale-[1.02]' : ''}`}>
@@ -65,16 +50,11 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
 
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center border-2 flex-shrink-0"
-                    style={tierColor ? {
-                      backgroundColor: `${tierColor}22`,
-                      borderColor: `${tierColor}4D`,
-                    } : undefined}
+                    className="w-12 h-12 rounded-full flex items-center justify-center border-2 flex-shrink-0 bg-[hsl(var(--ds-color-accent)/0.1)] border-[hsl(var(--ds-color-accent)/0.3)]"
                   >
                     <IconComponent
                       size={24}
-                      style={tierColor ? { color: tierColor } : undefined}
-                      className={!tierColor ? "text-[hsl(var(--ds-color-icon))]" : undefined}
+                      className="text-[hsl(var(--ds-color-icon))]"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-foreground">

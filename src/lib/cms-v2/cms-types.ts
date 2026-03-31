@@ -107,6 +107,7 @@ export interface PlansSection {
     ctaText?: string;
     link: string;
     recommended: boolean;
+    icon?: string;
   }>;
   footerCta?: SectionFooterCTA;
 }

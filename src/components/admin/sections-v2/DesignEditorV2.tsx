@@ -69,7 +69,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.14,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -93,7 +93,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.10,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -117,7 +117,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.45,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -141,7 +141,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.50,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -165,7 +165,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.55,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -189,7 +189,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.45,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -213,7 +213,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.45,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
   {
@@ -237,7 +237,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
       glassIntensity: 0.12,
       cardRoundness: 'medio' as const,
       verticalSpacing: 'medium' as const,
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Inter',
     }
   },
 ];
@@ -266,7 +266,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
   };
 
   // Wrapper para campos avancados — marca preset como 'custom'
-  const updateDesignField = (field: string, value: any) => {
+  const updateDesignField = (field: string, value: unknown) => {
     updateField('design', field, value);
     // Marca como custom se mudou manualmente
     if (field !== 'preset') {
@@ -552,12 +552,24 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
 
               <div className="space-y-2">
                 <Label className="text-foreground text-xs">Fonte</Label>
-                <DebouncedInputV2
-                  value={design?.fontFamily || ''}
-                  onDebouncedChange={(v) => updateDesignField('fontFamily', v)}
-                  placeholder="Inter, sans-serif"
-                  className="input-admin"
-                />
+                <Select
+                  value={design?.fontFamily || 'Inter'}
+                  onValueChange={(v) => updateDesignField('fontFamily', v)}
+                >
+                  <SelectTrigger className="input-admin">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Inter">Inter</SelectItem>
+                    <SelectItem value="Roboto">Roboto</SelectItem>
+                    <SelectItem value="Poppins">Poppins</SelectItem>
+                    <SelectItem value="Montserrat">Montserrat</SelectItem>
+                    <SelectItem value="Lato">Lato</SelectItem>
+                    <SelectItem value="Open Sans">Open Sans</SelectItem>
+                    <SelectItem value="Nunito">Nunito</SelectItem>
+                    <SelectItem value="Raleway">Raleway</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
