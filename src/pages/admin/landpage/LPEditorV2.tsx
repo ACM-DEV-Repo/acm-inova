@@ -163,10 +163,6 @@ export default function LPEditorV2() {
     return initial;
   });
 
-  if (!lpKey) {
-    return <Navigate to="/admin/lps" replace />;
-  }
-
   const {
     draft,
     isDirty,
@@ -177,7 +173,11 @@ export default function LPEditorV2() {
     updateNestedField,
     updateSection,
     saveNow,
-  } = useAdminEditorV2Production(lpKey);
+  } = useAdminEditorV2Production(lpKey ?? '');
+
+  if (!lpKey) {
+    return <Navigate to="/admin/lps" replace />;
+  }
 
   const handleManualSave = async () => {
     const success = await saveNow();

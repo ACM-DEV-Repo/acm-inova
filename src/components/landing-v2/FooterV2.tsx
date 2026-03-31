@@ -1,12 +1,12 @@
 import { LPContent } from "@/lib/cms-v2/cms-types";
-import { Instagram, Facebook, Linkedin, Youtube, Music2 } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Youtube, Music2, type LucideIcon } from "lucide-react";
 
 type FooterV2Props = {
   data: LPContent["footer"];
   lpKey: string;
 };
 
-const socialIcons: Record<string, any> = {
+const socialIcons: Record<string, LucideIcon> = {
   instagram: Instagram,
   facebook: Facebook,
   linkedin: Linkedin,

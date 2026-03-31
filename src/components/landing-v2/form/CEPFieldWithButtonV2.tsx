@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { maskCEP } from "@/lib/cms-v2/form-masks-v2";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 interface ViaCEPResponse {
@@ -71,11 +71,7 @@ export const CEPFieldWithButtonV2 = ({
     const cleanCEP = value.replace(/\D/g, '');
 
     if (cleanCEP.length !== 8) {
-      toast({
-        title: "CEP inválido",
-        description: "Digite um CEP com 8 dígitos.",
-        variant: "destructive",
-      });
+      toast.error("CEP inválido", { description: "Digite um CEP com 8 dígitos." });
       return;
     }
 
@@ -86,11 +82,7 @@ export const CEPFieldWithButtonV2 = ({
       const data: ViaCEPResponse = await response.json();
 
       if (data.erro) {
-        toast({
-          title: "CEP não encontrado",
-          description: "Verifique o CEP digitado e tente novamente.",
-          variant: "destructive",
-        });
+        toast.error("CEP não encontrado", { description: "Verifique o CEP digitado e tente novamente." });
         setIsValid(false);
         return;
       }
@@ -107,10 +99,7 @@ export const CEPFieldWithButtonV2 = ({
       setCidade(newAddress.cidade);
       setUf(newAddress.uf);
 
-      toast({
-        title: "Endereço encontrado!",
-        description: `${data.bairro} - ${data.localidade}/${data.uf}`,
-      });
+      toast.success("Endereço encontrado!", { description: `${data.bairro} - ${data.localidade}/${data.uf}` });
 
       onAddressFound?.(newAddress);
       onAddressFieldsChange?.({
@@ -120,11 +109,7 @@ export const CEPFieldWithButtonV2 = ({
       });
     } catch (err) {
       console.error('[CEPFieldV2] Error fetching:', err);
-      toast({
-        title: "Erro ao buscar CEP",
-        description: "Tente novamente em alguns instantes.",
-        variant: "destructive",
-      });
+      toast.error("Erro ao buscar CEP", { description: "Tente novamente em alguns instantes." });
       setIsValid(false);
     } finally {
       setIsLoading(false);

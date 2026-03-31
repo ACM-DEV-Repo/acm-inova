@@ -4,7 +4,7 @@ import { LPContent, FormField } from "@/lib/cms-v2/cms-types";
 import { SectionCTAV2 } from "./SectionCTAV2";
 import { DynamicFormFieldV2 } from "./form/DynamicFormFieldV2";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Loader2, CheckCircle, Send } from "lucide-react";
 
 interface FormV2Props {
@@ -157,8 +157,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
         break;
       case 'toast':
       default:
-        toast({
-          title: action?.successTitle || "Enviado com sucesso!",
+        toast.success(action?.successTitle || "Enviado com sucesso!", {
           description: action?.successMessage || "Entraremos em contato em breve.",
         });
         setFormValues({});
@@ -221,10 +220,8 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      toast({
-        title: "Formulário incompleto",
+      toast.error("Formulário incompleto", {
         description: "Preencha todos os campos obrigatórios.",
-        variant: "destructive",
       });
       return;
     }
@@ -269,10 +266,8 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
     } catch (error) {
       Sentry.captureException(error, { extra: { context: 'FormV2.handleSubmit', lpKey } });
       console.error('[FormV2] Submit error:', error);
-      toast({
-        title: "Erro ao enviar",
+      toast.error("Erro ao enviar", {
         description: "Tente novamente em alguns instantes.",
-        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
