@@ -138,6 +138,9 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
 
       {/* Modal */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="exit-intent-title"
         className={`relative z-10 w-full bg-background border border-border/30 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 fade-in slide-in-from-bottom-4 duration-300 ${
           imageLeft ? 'max-w-2xl' : hasImage ? 'max-w-lg' : 'max-w-lg'
         }`}
@@ -171,7 +174,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
           {/* Content */}
           <div className="p-8 md:p-10">
             <div className={`space-y-5 ${!imageLeft ? 'text-center' : ''}`}>
-              <h3 className={`text-3xl md:text-4xl font-extrabold text-foreground leading-tight tracking-tight ${data.titleUppercase !== false ? 'uppercase' : ''}`}>
+              <h3 id="exit-intent-title" className={`text-3xl md:text-4xl font-extrabold text-foreground leading-tight tracking-tight ${data.titleUppercase !== false ? 'uppercase' : ''}`}>
                 {renderRichText(data.title)}
               </h3>
 

@@ -51,6 +51,8 @@ export const GlobalMenuV2 = memo(({ data, footer }: GlobalMenuV2Props) => {
             className="md:hidden p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-[hsl(var(--ds-color-surface))]/50 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -59,7 +61,7 @@ export const GlobalMenuV2 = memo(({ data, footer }: GlobalMenuV2Props) => {
 
       {/* Mobile menu dropdown */}
       {mobileOpen && links.length > 0 && (
-        <nav className="md:hidden bg-[hsl(var(--ds-color-bg))]/95 backdrop-blur-xl border-b border-[hsl(var(--ds-border-color))]/20 px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-200">
+        <nav id="mobile-menu" className="md:hidden bg-[hsl(var(--ds-color-bg))]/95 backdrop-blur-xl border-b border-[hsl(var(--ds-border-color))]/20 px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-200">
           {links.map((link, i) => (
             <a
               key={i}

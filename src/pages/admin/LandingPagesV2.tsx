@@ -189,7 +189,7 @@ export default function LandingPagesV2() {
 
   const handleSetHomepage = async (lpKey: string) => {
     setIsSettingHomepage(true);
-    const success = await setHomepage('v2', lpKey);
+    const success = await setHomepage(lpKey);
     if (success) {
       toast.success('Pagina principal atualizada!');
       const newConfig = await fetchHomepageConfig();

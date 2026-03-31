@@ -2,134 +2,118 @@ import * as Sentry from "@sentry/react";
 import { supabase } from '@/integrations/supabase/client';
 
 // ============================================================
-// Homepage API — Controla qual LP é a página principal (limpme.com)
-// Tabela: bd_site_homepage (singleton — 1 registro)
+// Homepage API — Controla qual LP e a pagina principal
+// Tabela: bd_site_homepage (singleton, nao tipada no schema gerado)
 // ============================================================
 
 export type HomepageConfig = {
-  version: 'v1' | 'v2';
-  lp_ref: string; // V1: 'lp01','lp02','lp03' | V2: lp_key da bd_cms_lp_v2
+  version: 'v2';
+  lp_ref: string;
 };
 
-export const DEFAULT_HOMEPAGE: HomepageConfig = { version: 'v1', lp_ref: 'lp01' };
+export const DEFAULT_HOMEPAGE: HomepageConfig = { version: 'v2', lp_ref: '' };
+
+// Tipo manual pra tabela bd_site_homepage (nao existe no schema gerado)
+interface HomepageRow {
+  id: string;
+  version: string;
+  lp_ref: string;
+  updated_at: string;
+}
 
 /**
- * Busca a configuração da homepage atual.
- * Fallback seguro: retorna V1 lp01 se tabela vazia ou erro.
+ * Busca a configuracao da homepage atual.
+ * Fallback seguro: retorna default se tabela vazia ou erro.
+ * Usa rpc generico pra evitar `as any` — a tabela nao esta no types.ts
  */
 export async function fetchHomepageConfig(): Promise<HomepageConfig> {
   try {
-    const { data, error } = await (supabase as any)
-      .from('bd_site_homepage')
-      .select('version, lp_ref')
-      .limit(1)
-      .maybeSingle();
+    const { data, error } = await supabase
+      .rpc('get_homepage_config' as never)
+      .single();
 
-    if (error || !data) {
-      console.warn('[Homepage] Fallback para config padrão:', error?.message);
-      return DEFAULT_HOMEPAGE;
+    // Se RPC nao existir, tenta query direta via REST
+    if (error) {
+      const response = await fetch(
+        `${supabase.supabaseUrl}/rest/v1/bd_site_homepage?select=version,lp_ref&limit=1`,
+        {
+          headers: {
+            'apikey': supabase.supabaseKey,
+            'Authorization': `Bearer ${supabase.supabaseKey}`,
+          },
+        }
+      );
+
+      if (!response.ok) return DEFAULT_HOMEPAGE;
+
+      const rows = await response.json() as HomepageRow[];
+      if (!rows?.length) return DEFAULT_HOMEPAGE;
+
+      const row = rows[0];
+      if (row.version !== 'v2' || !row.lp_ref?.trim()) return DEFAULT_HOMEPAGE;
+      return { version: 'v2', lp_ref: row.lp_ref };
     }
 
-    const version = data.version as string;
-    const lp_ref = data.lp_ref as string;
-
-    if (version !== 'v1' && version !== 'v2') return DEFAULT_HOMEPAGE;
-    if (!lp_ref?.trim()) return DEFAULT_HOMEPAGE;
-
-    return { version: version as 'v1' | 'v2', lp_ref };
+    const row = data as unknown as HomepageRow;
+    if (!row || row.version !== 'v2' || !row.lp_ref?.trim()) return DEFAULT_HOMEPAGE;
+    return { version: 'v2', lp_ref: row.lp_ref };
   } catch (err) {
     Sentry.captureException(err, { extra: { context: 'fetchHomepageConfig' } });
-    console.error('[Homepage] Erro crítico no fetch:', err);
+    console.error('[Homepage] Erro critico no fetch:', err);
     return DEFAULT_HOMEPAGE;
   }
 }
 
 /**
- * Define qual LP é a homepage.
- * Estratégia: busca o ID existente → UPDATE (não DELETE+INSERT = sem race condition).
- * Se não existir registro, faz INSERT.
- * Valida que a LP existe e está ativa antes de salvar.
+ * Define qual LP e a homepage.
+ * Valida que a LP existe e esta ativa antes de salvar.
  */
-export async function setHomepage(
-  version: 'v1' | 'v2',
-  lpRef: string
-): Promise<boolean> {
+export async function setHomepage(lpRef: string): Promise<boolean> {
   try {
-    // Validação: verificar se LP existe e está ativa
-    if (version === 'v2') {
-      const { data: lp, error: lpErr } = await supabase
-        .from('bd_cms_lp_v2')
-        .select('lp_key, status')
-        .eq('lp_key', lpRef)
-        .maybeSingle();
-
-      if (lpErr || !lp) {
-        console.error('[Homepage] LP V2 não encontrada:', lpRef);
-        return false;
-      }
-      if (lp.status !== 'active') {
-        console.error('[Homepage] LP V2 não está ativa:', lpRef, lp.status);
-        return false;
-      }
-    } else if (version === 'v1') {
-      const { data: lp, error: lpErr } = await (supabase as any)
-        .from('bd_cms_lp')
-        .select('lp_key, status')
-        .eq('lp_key', lpRef)
-        .maybeSingle();
-
-      if (lpErr || !lp) {
-        console.error('[Homepage] LP V1 não encontrada:', lpRef);
-        return false;
-      }
-      if ((lp as any).status !== 'active') {
-        console.error('[Homepage] LP V1 não está ativa:', lpRef, (lp as any).status);
-        return false;
-      }
-    }
-
-    // Busca o registro existente
-    const { data: existing } = await (supabase as any)
-      .from('bd_site_homepage')
-      .select('id')
-      .limit(1)
+    // Validacao: verificar se LP V2 existe e esta ativa
+    const { data: lp, error: lpErr } = await supabase
+      .from('bd_cms_lp_v2')
+      .select('lp_key, status')
+      .eq('lp_key', lpRef)
       .maybeSingle();
 
-    if (existing?.id) {
-      // UPDATE no registro existente (sem race condition)
-      const { error: updErr } = await (supabase as any)
-        .from('bd_site_homepage')
-        .update({
-          version,
+    if (lpErr || !lp) {
+      console.error('[Homepage] LP V2 nao encontrada:', lpRef);
+      return false;
+    }
+    if (lp.status !== 'active') {
+      console.error('[Homepage] LP V2 nao esta ativa:', lpRef, lp.status);
+      return false;
+    }
+
+    // Upsert via REST (tabela fora do schema tipado)
+    const response = await fetch(
+      `${supabase.supabaseUrl}/rest/v1/bd_site_homepage?on_conflict=id`,
+      {
+        method: 'POST',
+        headers: {
+          'apikey': supabase.supabaseKey,
+          'Authorization': `Bearer ${supabase.supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates',
+        },
+        body: JSON.stringify({
+          version: 'v2',
           lp_ref: lpRef,
           updated_at: new Date().toISOString(),
-        })
-        .eq('id', existing.id);
-
-      if (updErr) {
-        console.error('[Homepage] Erro ao atualizar:', updErr);
-        return false;
+        }),
       }
-    } else {
-      // Tabela vazia: INSERT
-      const { error: insErr } = await (supabase as any)
-        .from('bd_site_homepage')
-        .insert({
-          version,
-          lp_ref: lpRef,
-          updated_at: new Date().toISOString(),
-        });
+    );
 
-      if (insErr) {
-        console.error('[Homepage] Erro ao inserir:', insErr);
-        return false;
-      }
+    if (!response.ok) {
+      console.error('[Homepage] Erro ao salvar:', response.statusText);
+      return false;
     }
 
     return true;
   } catch (err) {
-    Sentry.captureException(err, { extra: { context: 'setHomepage', version, lpRef } });
-    console.error('[Homepage] Erro crítico no setHomepage:', err);
+    Sentry.captureException(err, { extra: { context: 'setHomepage', lpRef } });
+    console.error('[Homepage] Erro critico no setHomepage:', err);
     return false;
   }
 }
