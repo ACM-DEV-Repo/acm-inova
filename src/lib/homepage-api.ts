@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import { supabase } from '@/integrations/supabase/client';
 
 // ============================================================
@@ -37,6 +38,7 @@ export async function fetchHomepageConfig(): Promise<HomepageConfig> {
 
     return { version: version as 'v1' | 'v2', lp_ref };
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'fetchHomepageConfig' } });
     console.error('[Homepage] Erro crítico no fetch:', err);
     return DEFAULT_HOMEPAGE;
   }
@@ -126,6 +128,7 @@ export async function setHomepage(
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'setHomepage', version, lpRef } });
     console.error('[Homepage] Erro crítico no setHomepage:', err);
     return false;
   }

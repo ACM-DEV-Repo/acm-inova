@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import * as Sentry from "@sentry/react";
 import { Upload, X } from "lucide-react";
 import { uploadImage } from "@/lib/uploadImage";
 import { compressImage } from "@/lib/imageOptimizer";
@@ -17,9 +18,17 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const MAX_FILE_SIZE_MB = 10;
+
   const handleFile = async (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      toast.error('Por favor, selecione uma imagem válida');
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      toast.error('Formato não suportado. Use JPEG, PNG, WebP ou GIF.');
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      toast.error(`Arquivo muito grande. Máximo: ${MAX_FILE_SIZE_MB}MB`);
       return;
     }
 
@@ -39,6 +48,7 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
       onChange(url);
       toast.success("Imagem enviada!");
     } catch (error: unknown) {
+      Sentry.captureException(error, { extra: { context: 'ImageUploadV2.handleFile' } });
       console.error('[ImageUploadV2] Erro ao fazer upload:', error);
 
       let errorMessage = 'Erro ao fazer upload da imagem';
@@ -107,7 +117,7 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
         <input
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/gif"
           onChange={handleChange}
           className="hidden"
           disabled={uploading}

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { LPContent } from "@/lib/cms-v2/cms-types";
+import { validatePixelId, PixelPlatform } from "@/lib/cms-v2/pixelValidation-v2";
 
 interface TrackingHeadV2Props {
   tracking: LPContent['tracking'];
@@ -64,8 +65,12 @@ export const TrackingHeadV2 = ({ tracking, seo, lpKey }: TrackingHeadV2Props) =>
       scripts.push(script);
     };
 
+    // Helper: only inject if pixel format is valid
+    const isValidPixel = (platform: PixelPlatform, value: string | undefined): value is string =>
+      !!value && validatePixelId(platform, value).status === 'valid';
+
     // Meta Pixel (Facebook/Instagram)
-    if (tracking.meta) {
+    if (isValidPixel('meta', tracking.meta)) {
       addScript(
         `v2-meta-pixel-${lpKey}`,
         undefined,
@@ -74,7 +79,7 @@ export const TrackingHeadV2 = ({ tracking, seo, lpKey }: TrackingHeadV2Props) =>
     }
 
     // Google Analytics (GA4)
-    if (tracking.ga) {
+    if (isValidPixel('ga', tracking.ga)) {
       addScript(`v2-ga4-lib-${lpKey}`, `https://www.googletagmanager.com/gtag/js?id=${tracking.ga}`);
       addScript(
         `v2-ga4-init-${lpKey}`,
@@ -84,7 +89,7 @@ export const TrackingHeadV2 = ({ tracking, seo, lpKey }: TrackingHeadV2Props) =>
     }
 
     // Google Tag Manager
-    if (tracking.gtm) {
+    if (isValidPixel('gtm', tracking.gtm)) {
       addScript(
         `v2-gtm-${lpKey}`,
         undefined,
@@ -93,7 +98,7 @@ export const TrackingHeadV2 = ({ tracking, seo, lpKey }: TrackingHeadV2Props) =>
     }
 
     // TikTok Pixel
-    if (tracking.tiktok) {
+    if (isValidPixel('tiktok', tracking.tiktok)) {
       addScript(
         `v2-tiktok-${lpKey}`,
         undefined,
@@ -102,7 +107,7 @@ export const TrackingHeadV2 = ({ tracking, seo, lpKey }: TrackingHeadV2Props) =>
     }
 
     // LinkedIn Insight
-    if (tracking.linkedin) {
+    if (isValidPixel('linkedin', tracking.linkedin)) {
       addScript(
         `v2-linkedin-${lpKey}`,
         undefined,

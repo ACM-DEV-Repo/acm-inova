@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import { supabase } from "@/integrations/supabase/client";
 import { LPRecord, LPContent, LPStatus, TrackingSettings } from "./cms-types";
 import { Database, Json } from "@/integrations/supabase/types";
@@ -55,6 +56,7 @@ export const fetchLPByRef = async (ref: string): Promise<LPRecord | null> => {
     
     return rowToRecord(data);
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'fetchLPByRef', ref } });
     console.error(`[CMS-V2] Erro crítico no fetch:`, err);
     return null;
   }
@@ -77,6 +79,7 @@ export const fetchAllLPs = async (): Promise<LPRecord[]> => {
     
     return (data || []).map(rowToRecord);
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'fetchAllLPs' } });
     console.error(`[CMS-V2] Erro crítico no fetchAll:`, err);
     return [];
   }
@@ -107,6 +110,7 @@ export const saveContent = async (lpKey: string, content: LPContent): Promise<bo
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'saveContent', lpKey } });
     console.error(`[CMS-V2] Erro crítico no saveContent:`, err);
     return false;
   }
@@ -137,6 +141,7 @@ export const saveLP = async (lp: Partial<LPRecord> & { lp_key: string }): Promis
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'saveLP', lpKey: lp.lp_key } });
     console.error(`[CMS-V2] Erro crítico no save:`, err);
     return false;
   }
@@ -159,6 +164,7 @@ export const deleteLP = async (lpKey: string): Promise<boolean> => {
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'deleteLP', lpKey } });
     console.error(`[CMS-V2] Erro crítico no delete:`, err);
     return false;
   }
@@ -197,6 +203,7 @@ export const duplicateLP = async (
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'duplicateLP', sourceLpKey } });
     console.error(`[CMS-V2] Erro crítico no duplicate:`, err);
     return false;
   }
@@ -220,6 +227,7 @@ export const createLP = async (lp: Omit<LPRecord, 'id' | 'created_at' | 'updated
     
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'createLP' } });
     console.error(`[CMS-V2] Erro crítico no create:`, err);
     return false;
   }
@@ -242,6 +250,7 @@ export const updateLPStatus = async (lpKey: string, status: LPStatus): Promise<b
     
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'updateLPStatus', lpKey } });
     console.error(`[CMS-V2] Erro crítico no updateStatus:`, err);
     return false;
   }
@@ -268,6 +277,7 @@ export const updateLPSettings = async (lpKey: string, data: { name: string; slug
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'updateLPSettings', lpKey } });
     console.error(`[CMS-V2] Erro crítico no updateSettings:`, err);
     return false;
   }
@@ -353,6 +363,7 @@ export const fetchGlobalTrackingV2 = async (): Promise<TrackingSettings | null> 
     if (!record?.content?.tracking) return null;
     return record.content.tracking;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'fetchGlobalTrackingV2' } });
     console.error('[CMS-V2] Erro ao buscar tracking global:', err);
     return null;
   }
@@ -391,6 +402,7 @@ export const saveGlobalTrackingV2 = async (tracking: TrackingSettings): Promise<
 
     return true;
   } catch (err) {
+    Sentry.captureException(err, { extra: { context: 'saveGlobalTrackingV2' } });
     console.error('[CMS-V2] Erro crítico no saveGlobalTracking:', err);
     return false;
   }

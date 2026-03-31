@@ -7,7 +7,7 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   build: {
-    sourcemap: true,
+    sourcemap: 'hidden',
   },
   server: {
     host: "::",

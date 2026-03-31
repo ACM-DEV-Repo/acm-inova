@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback, useRef, ReactNode } from 'react';
+import * as Sentry from "@sentry/react";
 import { LPContent } from './cms-types';
 import { fetchLPByRef } from './cms-api';
 
@@ -74,6 +75,7 @@ export const CMSProviderV2 = ({ children, lpKey }: { children: ReactNode; lpKey:
           await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 1000));
           continue;
         }
+        Sentry.captureException(err, { extra: { context: 'CMSProviderV2.load', lpKey, attempt } });
       }
     }
     setError('LP não encontrada ou sem conteúdo.');
@@ -243,10 +245,18 @@ export const CMSProviderV2 = ({ children, lpKey }: { children: ReactNode; lpKey:
       root.style.setProperty('--ds-section-py', spacingMap[design.verticalSpacing]);
     }
 
-    // Font family
+    // Font family — sanitized (whitelist pattern, no injection)
     if (design.fontFamily) {
-      root.style.setProperty('--ds-font-family', design.fontFamily);
-      document.body.style.fontFamily = design.fontFamily;
+      const SAFE_FONT_PATTERN = /^[a-zA-Z0-9\s,\-']+$/;
+      const safeFontFamily = SAFE_FONT_PATTERN.test(design.fontFamily)
+        ? design.fontFamily
+        : 'Inter, sans-serif';
+      root.style.setProperty('--ds-font-family', safeFontFamily);
+      // Scoped to LP content only — do NOT set on document.body (pollutes admin)
+      const lpContent = document.querySelector('.lp-v2-content') as HTMLElement | null;
+      if (lpContent) {
+        lpContent.style.fontFamily = safeFontFamily;
+      }
     }
   }, [content]);
 

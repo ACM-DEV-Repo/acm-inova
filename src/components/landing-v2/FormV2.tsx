@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as Sentry from "@sentry/react";
 import { LPContent, FormField } from "@/lib/cms-v2/cms-types";
 import { SectionCTAV2 } from "./SectionCTAV2";
 import { DynamicFormFieldV2 } from "./form/DynamicFormFieldV2";
@@ -138,7 +139,17 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
     switch (action?.type) {
       case 'redirect':
         if (action.redirectUrl) {
-          window.location.href = action.redirectUrl;
+          try {
+            const url = new URL(action.redirectUrl, window.location.origin);
+            if (url.protocol === 'https:' || url.protocol === 'http:') {
+              window.location.href = action.redirectUrl;
+            }
+          } catch {
+            // Relative path (starts with / but not // to prevent protocol-relative redirect)
+            if (action.redirectUrl.startsWith('/') && !action.redirectUrl.startsWith('//')) {
+              window.location.href = action.redirectUrl;
+            }
+          }
         }
         break;
       case 'success-card':
@@ -197,7 +208,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
         }),
       });
     } catch (err) {
-      // Non-blocking: silently log
+      Sentry.captureException(err, { extra: { context: 'FormV2.fireWebhook', lpKey } });
       console.warn('[FormV2] Webhook failed (non-blocking):', err);
     }
   };
@@ -252,6 +263,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
 
       handlePostSubmit();
     } catch (error) {
+      Sentry.captureException(error, { extra: { context: 'FormV2.handleSubmit', lpKey } });
       console.error('[FormV2] Submit error:', error);
       toast({
         title: "Erro ao enviar",
