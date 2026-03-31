@@ -40,7 +40,7 @@ export const StickyMobileCtaV2 = memo(({ data, coupon, lpKey }: StickyMobileCtaV
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 md:hidden transition-all duration-300 ${
+      className={`fixed bottom-0 left-0 right-0 z-40 md:hidden transition-transform duration-300 ${
         visible
           ? 'translate-y-0 opacity-100'
           : 'translate-y-full opacity-0 pointer-events-none'
@@ -49,7 +49,7 @@ export const StickyMobileCtaV2 = memo(({ data, coupon, lpKey }: StickyMobileCtaV
       <div className="bg-background/95 backdrop-blur-md border-t border-border/30 px-4 py-3 safe-bottom">
         <a
           href={href}
-          className="block w-full text-center py-3.5 rounded-full font-bold text-base transition-all duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:shadow-[0_8px_24px_hsl(var(--ds-color-accent)/0.4)] active:scale-[0.98]"
+          className="block w-full text-center py-3.5 rounded-full font-bold text-base transition-transform duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:shadow-[0_8px_24px_hsl(var(--ds-color-accent)/0.4)] active:scale-[0.98]"
         >
           {data.text || 'Contratar agora'}
         </a>

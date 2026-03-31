@@ -27,7 +27,7 @@ export const SectionCTAV2 = ({ data, className, lpKey, couponCode }: SectionCTAV
         href={href}
         className="
           group relative inline-flex items-center justify-center
-          px-12 py-4 text-lg font-bold transition-all duration-300
+          px-12 py-4 text-lg font-bold transition-transform duration-300
           rounded-full shadow-lg
           bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))]
           hover:scale-105 hover:shadow-[0_8px_24px_hsl(var(--ds-color-accent)/0.4)]

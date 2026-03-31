@@ -31,7 +31,7 @@ export const ProcessV2 = ({ data, lpKey, couponCode }: ProcessV2Props) => {
               ? resolveIcon(step.icon, fallbackIcons[index % fallbackIcons.length])
               : fallbackIcons[index % fallbackIcons.length];
             return (
-            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-all duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300">
               <div className="flex items-center gap-3 mb-4">
                 <IconComp
                   size={24}

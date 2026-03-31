@@ -43,7 +43,7 @@ export const ScheduleV2 = memo(({ data, lpKey, couponCode }: Props) => {
               <button
                 key={day.id}
                 onClick={() => setActiveDay(idx)}
-                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-full text-sm font-semibold transition-transform duration-300 ${
                   activeDay === idx
                     ? 'bg-[hsl(var(--ds-color-accent))] text-[hsl(var(--ds-color-btn-text))] shadow-lg shadow-[hsl(var(--ds-color-accent))]/25'
                     : 'glass-card text-muted-foreground hover:text-foreground'
@@ -68,7 +68,7 @@ export const ScheduleV2 = memo(({ data, lpKey, couponCode }: Props) => {
             {currentDay.items.map((item, idx) => (
               <div
                 key={`${currentDay.id}-${idx}`}
-                className="glass-card p-6 md:p-8 flex flex-col sm:flex-row gap-4 sm:gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-[hsl(var(--ds-color-accent))]/5"
+                className="glass-card p-6 md:p-8 flex flex-col sm:flex-row gap-4 sm:gap-6 transition-transform duration-300 hover:shadow-lg hover:shadow-[hsl(var(--ds-color-accent))]/5"
               >
                 {/* Horario */}
                 {item.time && (

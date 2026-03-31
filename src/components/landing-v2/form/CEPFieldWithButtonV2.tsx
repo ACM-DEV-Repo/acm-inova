@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as Sentry from "@sentry/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -108,6 +109,7 @@ export const CEPFieldWithButtonV2 = ({
         uf: newAddress.uf,
       });
     } catch (err) {
+      Sentry.captureException(err, { extra: { context: 'CEPField.fetchCEP' } });
       console.error('[CEPFieldV2] Error fetching:', err);
       toast.error("Erro ao buscar CEP", { description: "Tente novamente em alguns instantes." });
       setIsValid(false);
@@ -119,7 +121,7 @@ export const CEPFieldWithButtonV2 = ({
   const inputClasses = cn(
     "bg-[hsl(var(--ds-color-glass)/var(--ds-glass-opacity))] border-[hsl(var(--ds-border-color)/var(--ds-border-opacity))] text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary",
     error && "border-destructive focus:border-destructive",
-    isValid && "border-emerald-500 focus:border-emerald-500"
+    isValid && "border-[hsl(var(--ds-color-accent))] focus:border-[hsl(var(--ds-color-accent))]"
   );
 
   const addressInputClasses = cn(
@@ -140,7 +142,7 @@ export const CEPFieldWithButtonV2 = ({
             maxLength={9}
           />
           {isValid && (
-            <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+            <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[hsl(var(--ds-color-accent))]" />
           )}
         </div>
         <Button

@@ -52,7 +52,7 @@ export const WhatsAppButtonV2 = ({ data, lpKey }: WhatsAppButtonV2Props) => {
             "bg-[#25D366] hover:bg-[#1da851] text-white",
             "shadow-[0_0_20px_rgba(37,211,102,0.5)]",
             "hover:shadow-[0_0_30px_rgba(37,211,102,0.7)]",
-            "hover:scale-110 transition-all duration-300"
+            "hover:scale-110 transition-transform duration-300"
           )}
         >
           <WhatsAppIcon className="h-7 w-7" />

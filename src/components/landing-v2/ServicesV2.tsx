@@ -21,7 +21,7 @@ export const ServicesV2 = ({ data, lpKey, couponCode }: ServicesV2Props) => {
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {data.items?.map((item, index) =>
             item.enabled !== false ? (
-              <li key={index} className="glass-card px-6 md:px-8 py-5 md:py-6 flex items-start gap-4 hover:scale-[1.02] transition-all duration-300">
+              <li key={index} className="glass-card px-6 md:px-8 py-5 md:py-6 flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300">
                 <div className="w-6 h-6 rounded-full bg-[hsl(var(--ds-color-icon))] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check size={14} className="text-[hsl(var(--ds-color-btn-text))] stroke-[3]" />
                 </div>

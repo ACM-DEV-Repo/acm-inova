@@ -337,7 +337,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
             <button
               type="submit"
               disabled={isSubmitting || fields.length === 0}
-              className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-10 md:px-14 py-4 md:py-5 rounded-full font-bold text-base md:text-lg bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)] transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none"
+              className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-10 md:px-14 py-4 md:py-5 rounded-full font-bold text-base md:text-lg bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)] transition-transform duration-300 disabled:opacity-50 disabled:pointer-events-none"
             >
               {isSubmitting ? (
                 <>

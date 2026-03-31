@@ -27,7 +27,7 @@ export const BenefitsV2 = ({ data, lpKey, couponCode }: BenefitsV2Props) => {
               ? resolveIcon(item.icon, fallbackIcons[index % fallbackIcons.length])
               : fallbackIcons[index % fallbackIcons.length];
             return (
-            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-all duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-transform duration-300">
               <div className="flex justify-center mb-4">
                 <IconBadgeV2 icon={IconComp} />
               </div>

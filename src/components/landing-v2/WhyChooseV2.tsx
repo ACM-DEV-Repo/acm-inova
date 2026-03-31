@@ -32,7 +32,7 @@ export const WhyChooseV2 = ({ data, lpKey, couponCode }: WhyChooseV2Props) => {
               ? resolveIcon(item.icon, fallbackIcons[index % fallbackIcons.length])
               : fallbackIcons[index % fallbackIcons.length];
             return (
-            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-all duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300">
               <div className="flex justify-center mb-5">
                 <IconBadgeV2 icon={IconComp} />
               </div>

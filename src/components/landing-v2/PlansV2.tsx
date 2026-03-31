@@ -41,7 +41,7 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
             const IconComponent = resolveIcon(plan.icon, Package);
 
               return (
-              <div key={plan.id} className={`glass-card p-8 md:p-10 flex flex-col hover:scale-[1.02] transition-all duration-300 relative ${plan.recommended ? 'ring-2 ring-[hsl(var(--ds-color-accent))] shadow-[0_0_30px_hsl(var(--ds-color-accent)/0.3)] scale-[1.02]' : ''}`}>
+              <div key={plan.id} className={`glass-card p-8 md:p-10 flex flex-col hover:scale-[1.02] transition-transform duration-300 relative ${plan.recommended ? 'ring-2 ring-[hsl(var(--ds-color-accent))] shadow-[0_0_30px_hsl(var(--ds-color-accent)/0.3)] scale-[1.02]' : ''}`}>
                 {plan.recommended && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-xs font-semibold bg-[hsl(var(--ds-color-accent))] text-[hsl(var(--ds-color-btn-text))]">
                     Recomendado
@@ -106,7 +106,7 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
 
                 <a
                   href={applyCoupon(applyUTMv2(plan.link, lpKey), couponCode)}
-                  className="w-full text-center py-4 font-semibold text-base transition-all duration-300 mt-6 rounded-full bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_hsl(var(--ds-color-accent)/0.4)]"
+                  className="w-full text-center py-4 font-semibold text-base transition-transform duration-300 mt-6 rounded-full bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_hsl(var(--ds-color-accent)/0.4)]"
                 >
                   {plan.ctaText || 'Assinar'}
                 </a>

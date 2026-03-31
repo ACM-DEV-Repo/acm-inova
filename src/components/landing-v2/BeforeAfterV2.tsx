@@ -43,7 +43,7 @@ export const BeforeAfterV2 = ({ data, lpKey, couponCode }: BeforeAfterV2Props) =
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-12">
           {data.images?.map((item, index) => (
-            <div key={index} className="glass-card p-8 md:p-12 flex flex-col items-center hover:scale-[1.02] transition-all duration-300">
+            <div key={index} className="glass-card p-8 md:p-12 flex flex-col items-center hover:scale-[1.02] transition-transform duration-300">
               <div className="grid grid-cols-2 gap-4 md:gap-8 w-full">
                 <div className="flex flex-col items-center">
                   <span className="inline-flex items-center gap-1.5 text-sm md:text-base mb-3 md:mb-4 font-bold text-foreground">

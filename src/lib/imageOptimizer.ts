@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import imageCompression from 'browser-image-compression';
 
 /**
@@ -21,6 +22,7 @@ export async function compressImage(file: File): Promise<File> {
       lastModified: Date.now(),
     });
   } catch (error) {
+    Sentry.captureException(error, { extra: { context: 'compressImage', fileName: file.name } });
     console.warn('Compressão de imagem falhou, usando arquivo original:', error);
     return file;
   }

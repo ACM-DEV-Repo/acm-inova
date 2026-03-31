@@ -55,7 +55,7 @@ export const CTAFinalV2 = ({ data, lpKey, couponCode, conversion }: CTAFinalV2Pr
 
         <a
           href={applyCoupon(applyUTMv2(data.buttonLink, lpKey), couponCode)}
-          className="inline-block w-full sm:w-auto px-12 md:px-16 py-4 md:py-6 rounded-full font-bold text-lg md:text-xl transition-all duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)]"
+          className="inline-block w-full sm:w-auto px-12 md:px-16 py-4 md:py-6 rounded-full font-bold text-lg md:text-xl transition-transform duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)]"
         >
           {data.buttonText}
         </a>

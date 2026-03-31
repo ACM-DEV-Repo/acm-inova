@@ -26,7 +26,7 @@ export const ContactV2 = ({ data, lpKey }: ContactV2Props) => {
           href={data.whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-12 md:px-16 py-4 md:py-6 rounded-full font-bold text-lg md:text-xl bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)] transition-all duration-300"
+          className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-12 md:px-16 py-4 md:py-6 rounded-full font-bold text-lg md:text-xl bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-105 hover:shadow-[0_16px_32px_hsl(var(--ds-color-accent)/0.4)] shadow-[0_8px_16px_hsl(var(--ds-color-accent)/0.2)] transition-transform duration-300"
         >
           <WhatsAppIcon className="w-6 h-6" />
           Falar no WhatsApp

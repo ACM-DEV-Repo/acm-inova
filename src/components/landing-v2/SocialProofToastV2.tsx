@@ -95,7 +95,7 @@ export const SocialProofToastV2 = memo(({ data, lpKey }: SocialProofToastV2Props
       }`}
     >
       <div
-        className={`pointer-events-auto transition-all duration-500 ease-out ${
+        className={`pointer-events-auto transition-transform duration-500 ease-out ${
           visible
             ? 'translate-y-0 opacity-100'
             : 'translate-y-8 opacity-0'

@@ -35,7 +35,7 @@ export const HowItWorksV2 = ({ data, lpKey, couponCode }: HowItWorksV2Props) => 
               : fallbackIcons[index % fallbackIcons.length];
             const stepText = getStepText(step);
             return (
-            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-all duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-transform duration-300">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[hsl(var(--ds-color-icon)/0.15)] border-2 border-[hsl(var(--ds-color-icon)/0.3)] flex items-center justify-center mx-auto mb-6">
                 <IconComp size={32} className="text-[hsl(var(--ds-color-icon))]" />
               </div>

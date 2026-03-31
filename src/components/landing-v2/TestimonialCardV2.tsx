@@ -12,7 +12,7 @@ type TestimonialCardV2Props = {
 
 export const TestimonialCardV2 = ({ item }: TestimonialCardV2Props) => {
   return (
-    <div className="glass-card relative p-8 pt-16 hover:scale-[1.02] transition-all duration-300">
+    <div className="glass-card relative p-8 pt-16 hover:scale-[1.02] transition-transform duration-300">
       {/* Avatar posicionado como "selo" no topo */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
         {item.image ? (

@@ -28,7 +28,7 @@ export const KPIsV2 = ({ data, lpKey, couponCode }: KPIsV2Props) => {
               ? resolveIcon(kpi.icon, fallbackIcons[idx % fallbackIcons.length])
               : fallbackIcons[idx % fallbackIcons.length];
             return (
-            <div key={idx} className="text-center glass-card p-10 md:p-14 hover:scale-[1.03] transition-all duration-300">
+            <div key={idx} className="text-center glass-card p-10 md:p-14 hover:scale-[1.03] transition-transform duration-300">
               <div className="flex justify-center mb-5">
                 <IconBadgeV2 icon={IconComp} size="lg" />
               </div>

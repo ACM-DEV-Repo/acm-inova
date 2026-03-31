@@ -183,7 +183,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
               <a
                 href={ctaUrl}
                 onClick={dismiss} aria-label="Fechar"
-                className={`inline-block w-full py-5 rounded-full font-bold text-xl uppercase tracking-wide transition-all duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-[1.02] hover:shadow-[0_16px_40px_hsl(var(--ds-color-accent)/0.45)] ${
+                className={`inline-block w-full py-5 rounded-full font-bold text-xl uppercase tracking-wide transition-transform duration-300 bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:scale-[1.02] hover:shadow-[0_16px_40px_hsl(var(--ds-color-accent)/0.45)] ${
                   !imageLeft ? 'text-center' : 'text-center'
                 }`}
               >

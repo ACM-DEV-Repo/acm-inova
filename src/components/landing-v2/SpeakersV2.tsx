@@ -21,7 +21,7 @@ const SpeakerCard = memo(({
 
   return (
     <div
-      className={`glass-card overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:shadow-[hsl(var(--ds-color-accent))]/10 ${
+      className={`glass-card overflow-hidden flex flex-col transition-transform duration-300 hover:shadow-lg hover:shadow-[hsl(var(--ds-color-accent))]/10 ${
         isFeatured ? 'md:col-span-2 md:row-span-2' : ''
       }`}
     >
@@ -78,7 +78,7 @@ const SpeakerCard = memo(({
                 href={speaker.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-all duration-200"
+                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-transform duration-200"
                 aria-label={`Instagram de ${speaker.name}`}
               >
                 <Instagram className="h-5 w-5" />
@@ -89,7 +89,7 @@ const SpeakerCard = memo(({
                 href={speaker.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-all duration-200"
+                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-transform duration-200"
                 aria-label={`LinkedIn de ${speaker.name}`}
               >
                 <Linkedin className="h-5 w-5" />
@@ -100,7 +100,7 @@ const SpeakerCard = memo(({
                 href={speaker.socials.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-all duration-200"
+                className="p-2 rounded-lg text-muted-foreground hover:text-[hsl(var(--ds-color-accent))] hover:bg-[hsl(var(--ds-color-accent))]/10 transition-transform duration-200"
                 aria-label={`Website de ${speaker.name}`}
               >
                 <Globe className="h-5 w-5" />
