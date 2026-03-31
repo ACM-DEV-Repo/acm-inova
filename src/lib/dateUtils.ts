@@ -107,11 +107,30 @@ export function formatBrazilDateShort(date: Date): string {
  */
 export function formatBrazilDateTimeShort(date: Date): string {
   const dateStr = formatBrazilDateShort(date);
-  const timeStr = date.toLocaleTimeString('pt-BR', { 
+  const timeStr = date.toLocaleTimeString('pt-BR', {
     timeZone: BRAZIL_TIMEZONE,
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
   });
   return `${dateStr} ${timeStr}`;
+}
+
+/**
+ * Formata data relativa em portugues (ex: "ha 5min", "ha 2h", "ha 3d")
+ */
+export function formatRelativeDate(dateStr: string): string {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMin = Math.floor(diffMs / 60000);
+  const diffHrs = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMin < 1) return 'agora mesmo';
+  if (diffMin < 60) return `ha ${diffMin}min`;
+  if (diffHrs < 24) return `ha ${diffHrs}h`;
+  if (diffDays < 7) return `ha ${diffDays}d`;
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' });
 }

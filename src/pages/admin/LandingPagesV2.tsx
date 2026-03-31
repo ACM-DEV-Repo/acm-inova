@@ -25,6 +25,8 @@ import { AdminPageHeader } from '@/components/admin/layout/AdminPageHeader';
 import { PreviewDrawerV2 } from '@/components/admin/preview-v2/PreviewDrawerV2';
 import { GlobalTrackingPanelV2 } from '@/components/admin/sections-v2/GlobalTrackingPanelV2';
 import { fetchHomepageConfig, setHomepage, type HomepageConfig } from '@/lib/homepage-api';
+import { InlineSlugEditor } from '@/components/admin/shared-v2/InlineSlugEditor';
+import { formatRelativeDate } from '@/lib/dateUtils';
 import { toast } from 'sonner';
 
 // ============================================================
@@ -43,105 +45,6 @@ const statusLabels: Record<LPStatus, string> = {
 };
 
 // ============================================================
-// Inline Slug Editor
-// ============================================================
-function InlineSlugEditor({ lp, onSave }: { lp: LPRecord; onSave: (slug: string) => Promise<void> }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(lp.slug);
-  const [isSaving, setIsSaving] = useState(false);
-
-  const fullUrl = `${window.location.origin}/l/${lp.slug}`;
-
-  const handleSave = async () => {
-    const cleaned = value.toLowerCase().replace(/[^a-z0-9-]/g, '');
-    if (!cleaned || cleaned === lp.slug) {
-      setValue(lp.slug);
-      setIsEditing(false);
-      return;
-    }
-    setIsSaving(true);
-    await onSave(cleaned);
-    setIsSaving(false);
-    setIsEditing(false);
-  };
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(fullUrl);
-      toast.success('Link copiado!');
-    } catch {
-      toast.error('Erro ao copiar');
-    }
-  };
-
-  return (
-    <div className="space-y-1.5">
-      <div className="flex items-center gap-1.5">
-        <span className="text-xs text-muted-foreground font-mono">/l/</span>
-        {isEditing ? (
-          <div className="flex items-center gap-1 flex-1">
-            <Input
-              value={value}
-              onChange={(e) => setValue(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-              onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-              onBlur={handleSave}
-              disabled={isSaving}
-              className="h-6 text-xs font-mono px-1.5 py-0"
-              autoFocus
-            />
-          </div>
-        ) : (
-          <>
-            <span className="text-xs text-foreground font-mono font-medium">{lp.slug}</span>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-5 w-5 text-muted-foreground hover:text-foreground"
-              onClick={() => { setValue(lp.slug); setIsEditing(true); }}
-            >
-              <Pencil className="h-3 w-3" />
-            </Button>
-          </>
-        )}
-      </div>
-      <div className="flex items-center gap-1.5">
-        <span className="text-[11px] text-muted-foreground/70 font-mono truncate max-w-[200px]">
-          {fullUrl}
-        </span>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-5 w-5 text-muted-foreground hover:text-accent shrink-0"
-          onClick={handleCopy}
-          title="Copiar link"
-        >
-          <Copy className="h-3 w-3" />
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
-// Relative time
-// ============================================================
-function formatRelativeDate(dateStr: string): string {
-  if (!dateStr) return '';
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMin = Math.floor(diffMs / 60000);
-  const diffHrs = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-
-  if (diffMin < 1) return 'agora mesmo';
-  if (diffMin < 60) return `ha ${diffMin}min`;
-  if (diffHrs < 24) return `ha ${diffHrs}h`;
-  if (diffDays < 7) return `ha ${diffDays}d`;
-  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' });
-}
-
-// ============================================================
 // Main Component
 // ============================================================
 export default function LandingPagesV2() {
@@ -149,6 +52,12 @@ export default function LandingPagesV2() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
   const [newLp, setNewLp] = useState({ name: '', slug: '', lp_key: '' });
+
+  /** Auto-gera slug e lp_key a partir do nome */
+  const handleNameChange = (name: string) => {
+    const slug = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    setNewLp({ name, slug, lp_key: slug });
+  };
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   const [duplicateSource, setDuplicateSource] = useState<LPRecord | null>(null);
@@ -360,27 +269,18 @@ export default function LandingPagesV2() {
                     <Label htmlFor="name">Nome da LP</Label>
                     <Input
                       id="name"
-                      placeholder="Ex: LP 04 - Campanha Verao"
+                      placeholder="Ex: Summit Saude 2026"
                       value={newLp.name}
-                      onChange={(e) => setNewLp(prev => ({ ...prev, name: e.target.value }))}
+                      onChange={(e) => handleNameChange(e.target.value)}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lp_key">Chave Interna (lp_key)</Label>
-                    <Input
-                      id="lp_key"
-                      placeholder="Ex: lp04"
-                      value={newLp.lp_key}
-                      onChange={(e) => setNewLp(prev => ({ ...prev, lp_key: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="slug">Slug (URL)</Label>
+                    <Label htmlFor="slug">Endereco da pagina</Label>
                     <Input
                       id="slug"
-                      placeholder="Ex: campanha-verao"
+                      placeholder="Gerado automaticamente"
                       value={newLp.slug}
-                      onChange={(e) => setNewLp(prev => ({ ...prev, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
+                      onChange={(e) => setNewLp(prev => ({ ...prev, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''), lp_key: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
                     />
                     <p className="text-xs text-muted-foreground">URL: /l/{newLp.slug || 'slug'}</p>
                   </div>
@@ -408,9 +308,20 @@ export default function LandingPagesV2() {
           </div>
         ) : filteredLps.length === 0 ? (
           <Card>
-            <CardContent className="flex flex-col items-center justify-center py-12">
-              <FileText className="h-12 w-12 text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">Nenhuma LP encontrada</p>
+            <CardContent className="flex flex-col items-center justify-center py-16 gap-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <LayoutTemplate className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">Nenhuma landing page ainda</h3>
+                <p className="text-sm text-muted-foreground max-w-md">
+                  Crie sua primeira landing page para comecar. Ela vira com todas as secoes prontas para editar.
+                </p>
+              </div>
+              <Button className="gap-2 mt-2" onClick={() => setCreateDialogOpen(true)}>
+                <Plus className="h-4 w-4" />
+                Criar primeira LP
+              </Button>
             </CardContent>
           </Card>
         ) : (
@@ -449,6 +360,18 @@ export default function LandingPagesV2() {
                       onSave={(slug) => handleSlugSave(lp.lp_key, slug)}
                     />
                   </div>
+
+                  {/* Publish button (when draft) */}
+                  {lp.status === 'draft' && (
+                    <Button
+                      size="sm"
+                      className="w-full h-9 text-xs gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white"
+                      onClick={() => handleStatusChange(lp.lp_key, 'active')}
+                    >
+                      <Rocket className="h-3.5 w-3.5" />
+                      Publicar
+                    </Button>
+                  )}
 
                   {/* Actions */}
                   <div className="flex items-center gap-1.5 pt-1">

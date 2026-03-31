@@ -495,3 +495,52 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
 export const getNewLPContent = (): LPContent => {
   return JSON.parse(JSON.stringify(DEFAULT_LP_TEMPLATE));
 };
+
+/**
+ * Preset "Evento Medico" — ativa apenas secoes relevantes para eventos.
+ * Desativa: howItWorks, beforeAfter, process, services, whyChoose, videoCarousel
+ */
+export const getEventoMedicoContent = (): LPContent => {
+  const content = getNewLPContent();
+  // Secoes essenciais para eventos
+  content.hero.enabled = true;
+  content.speakers.enabled = true;
+  content.schedule.enabled = true;
+  content.plans.enabled = true;
+  content.sponsors.enabled = true;
+  content.faq.enabled = true;
+  content.ctaFinal.enabled = true;
+  content.footer.enabled = true;
+  content.forWhom.enabled = true;
+  content.kpis.enabled = true;
+  content.about.enabled = true;
+  content.contact.enabled = true;
+  // Secoes de servico desativadas
+  content.howItWorks.enabled = false;
+  content.beforeAfter.enabled = false;
+  content.process.enabled = false;
+  content.services.enabled = false;
+  content.whyChoose.enabled = false;
+  content.videoCarousel.enabled = false;
+  // Ordem otimizada para evento
+  content.sectionOrder = [
+    'hero', 'kpis', 'speakers', 'schedule', 'forWhom',
+    'plans', 'sponsors', 'testimonials', 'about', 'faq',
+    'ctaFinal', 'contact',
+  ];
+  // Design: preset summit-saude por padrao
+  content.design.preset = 'summit-saude';
+  content.design.primaryColor = '#00ACD4';
+  content.design.secondaryColor = '#0088A8';
+  content.design.backgroundColor = '#F0F1F3';
+  content.design.buttonColor = '#00ACD4';
+  content.design.titleColor = '#1A1D23';
+  content.design.borderColor = '#D1D5DB';
+  content.design.iconColor = '#00ACD4';
+  content.design.textPrimaryColor = '#1A1D23';
+  content.design.textSecondaryColor = '#5A5F6B';
+  content.design.gradient = { from: '#F0F1F3', to: '#E4E6EA' };
+  content.design.glassIntensity = 0.45;
+  content.design.fontFamily = 'Inter';
+  return content;
+};
