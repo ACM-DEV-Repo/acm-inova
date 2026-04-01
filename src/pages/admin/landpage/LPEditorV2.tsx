@@ -105,7 +105,7 @@ interface SectionGroup {
 
 const SECTIONS: SectionGroup[] = [
   {
-    group: 'Configuracoes',
+    group: 'Configurações',
     icon: Palette,
     defaultOpen: true,
     items: [
@@ -120,7 +120,7 @@ const SECTIONS: SectionGroup[] = [
     ],
   },
   {
-    group: 'Secoes',
+    group: 'Seções',
     icon: LayoutGrid,
     defaultOpen: true,
     items: [
@@ -227,7 +227,7 @@ export default function LPEditorV2() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
         <AlertCircle className="h-12 w-12 text-destructive" />
-        <p className="text-muted-foreground">LP nao encontrada: {lpKey}</p>
+        <p className="text-muted-foreground">LP não encontrada: {lpKey}</p>
         <Button variant="outline" onClick={() => window.location.reload()}>
           <RefreshCw className="h-4 w-4 mr-2" />
           Tentar novamente
@@ -273,8 +273,8 @@ export default function LPEditorV2() {
         <CMSHistoryPanel
           tableName="bd_cms_lp_v2"
           recordKey={lpKey}
-          title="Historico de Versoes"
-          description="Todas as alteracoes salvas desta LP"
+          title="Histórico de Versões"
+          description="Todas as alterações salvas desta LP"
         />
       );
       default: return <HeroEditorV2 {...editorProps} />;
@@ -374,7 +374,7 @@ export default function LPEditorV2() {
                 size="sm"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5"
                 onClick={async () => {
-                  if (isDirty) { toast.error('Salve as alteracoes antes de publicar'); return; }
+                  if (isDirty) { toast.error('Salve as alterações antes de publicar'); return; }
                   const ok = await updateLPStatus(lpKey, 'active');
                   if (ok) { setLpStatus('active'); toast.success('LP publicada!'); }
                   else toast.error('Erro ao publicar');

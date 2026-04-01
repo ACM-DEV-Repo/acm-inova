@@ -54,7 +54,7 @@ export const GlobalMenuEditorV2 = memo(({ draft, updateSection }: V2SectionEdito
       </div>
 
       <p className="text-sm text-muted-foreground">
-        Header fixo translucido com logo e links de navegacao. Aparece no topo da LP.
+        Header fixo translúcido com logo e links de navegação. Aparece no topo da LP.
       </p>
 
       {menu.enabled && (
@@ -76,7 +76,7 @@ export const GlobalMenuEditorV2 = memo(({ draft, updateSection }: V2SectionEdito
           {/* Links */}
           <div className="space-y-3">
             <Label className="text-foreground font-semibold">
-              Links de Navegacao ({(menu.links || []).length})
+              Links de Navegação ({(menu.links || []).length})
             </Label>
             <p className="text-xs text-muted-foreground">
               Visiveis apenas em desktop. Use anchors como #plans, #faq, etc.

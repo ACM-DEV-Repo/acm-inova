@@ -23,9 +23,9 @@ export const ContactEditorV2 = memo(({ draft, updateField }: V2SectionEditorProp
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('contact', 'title', val)}
@@ -33,9 +33,9 @@ export const ContactEditorV2 = memo(({ draft, updateField }: V2SectionEditorProp
         />
       </div>
 
-      {/* Subtitulo */}
+      {/* Subtítulo */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Subtitulo</Label>
+        <Label className="text-foreground font-semibold">Subtítulo</Label>
         <DebouncedInputV2
           value={section?.subtitle || ''}
           onDebouncedChange={(val) => updateField('contact', 'subtitle', val)}

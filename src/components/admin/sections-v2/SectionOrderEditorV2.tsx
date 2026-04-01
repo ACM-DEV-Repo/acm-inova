@@ -195,15 +195,15 @@ export const SectionOrderEditorV2 = memo(({ draft, updateField, updateSection }:
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       <h2 className="text-2xl font-bold text-foreground mb-4">Ordem das Seções</h2>
 
-      {/* Secoes Ativas — drag-and-drop */}
+      {/* Seções Ativas — drag-and-drop */}
       <div className="bg-muted/20 rounded-2xl p-6 space-y-4">
         <Label className="text-foreground font-semibold text-lg">
-          Secoes na Pagina ({activeSections.length})
+          Seções na Página ({activeSections.length})
         </Label>
 
         {activeSections.length === 0 && (
           <p className="text-sm text-muted-foreground text-center py-6 border border-dashed border-border/30 rounded-xl">
-            Nenhuma secao adicionada. Adicione secoes abaixo.
+            Nenhuma seção adicionada. Adicione seções abaixo.
           </p>
         )}
 
@@ -231,11 +231,11 @@ export const SectionOrderEditorV2 = memo(({ draft, updateField, updateSection }:
         </DndContext>
       </div>
 
-      {/* Secoes Disponiveis — pool para adicionar */}
+      {/* Seções Disponíveis — pool para adicionar */}
       {inactiveSections.length > 0 && (
         <div className="bg-muted/20 rounded-2xl p-6 space-y-4">
           <Label className="text-foreground font-semibold text-lg">
-            Secoes Disponiveis ({inactiveSections.length})
+            Seções Disponíveis ({inactiveSections.length})
           </Label>
           <div className="flex flex-wrap gap-2">
             {inactiveSections.map((sectionId) => (

@@ -243,7 +243,7 @@ const DESIGN_PRESETS: DesignPreset[] = [
 ];
 
 // ============================================================
-// DesignEditorV2 — Presets + Personalizacao Avancada
+// DesignEditorV2 — Presets + Personalização Avançada
 // ============================================================
 export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2SectionEditorProps) => {
   const design = draft.design;
@@ -287,7 +287,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
           Temas Prontos
         </Label>
         <p className="text-sm text-muted-foreground">
-          Escolha um tema como ponto de partida. Todas as cores serao aplicadas automaticamente.
+          Escolha um tema como ponto de partida. Todas as cores serão aplicadas automaticamente.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -357,7 +357,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
           })}
         </div>
 
-        {/* Indicador de customizacao */}
+        {/* Indicador de customização */}
         {isCustom && (
           <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
             <Paintbrush className="h-4 w-4 text-amber-600" />
@@ -369,7 +369,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
       </div>
 
       {/* ============================================================ */}
-      {/* Personalizacao Avancada (Collapsible) */}
+      {/* Personalização Avançada (Collapsible) */}
       {/* ============================================================ */}
       <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
         <CollapsibleTrigger asChild>
@@ -382,7 +382,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
                 advancedOpen && 'rotate-90'
               )}
             />
-            Personalizacao Avancada
+            Personalização Avançada
             <span className="text-xs font-normal text-muted-foreground ml-auto">
               Cores, gradiente, glass e layout
             </span>
@@ -426,7 +426,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
                 placeholder="#22c55e"
               />
               <ColorField
-                label="Titulos"
+                label="Títulos"
                 value={design?.titleColor || ''}
                 onChange={(v) => updateDesignField('titleColor', v)}
                 placeholder="#ffffff"
@@ -438,7 +438,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
                 placeholder="#334155"
               />
               <ColorField
-                label="Icones"
+                label="Ícones"
                 value={design?.iconColor || ''}
                 onChange={(v) => updateDesignField('iconColor', v)}
                 placeholder="#22c55e"

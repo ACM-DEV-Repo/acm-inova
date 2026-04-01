@@ -45,9 +45,9 @@ export const WhyChooseEditorV2 = memo(({ draft, updateField, updateSection }: V2
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('whyChoose', 'title', val)}
@@ -55,9 +55,9 @@ export const WhyChooseEditorV2 = memo(({ draft, updateField, updateSection }: V2
         />
       </div>
 
-      {/* Subtitulo */}
+      {/* Subtítulo */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Subtitulo</Label>
+        <Label className="text-foreground font-semibold">Subtítulo</Label>
         <DebouncedInputV2
           value={section?.subtitle || ''}
           onDebouncedChange={(val) => updateField('whyChoose', 'subtitle', val)}
@@ -117,7 +117,7 @@ export const WhyChooseEditorV2 = memo(({ draft, updateField, updateSection }: V2
               </div>
 
               <div className="space-y-3">
-                <Label>Titulo</Label>
+                <Label>Título</Label>
                 <DebouncedInputV2
                   value={item.title || ''}
                   onDebouncedChange={(val) => updateItem(index, 'title', val)}
@@ -133,7 +133,7 @@ export const WhyChooseEditorV2 = memo(({ draft, updateField, updateSection }: V2
               </div>
 
               <div className="space-y-2">
-                <Label>Descricao</Label>
+                <Label>Descrição</Label>
                 <DebouncedInputV2
                   value={item.description || ''}
                   onDebouncedChange={(val) => updateItem(index, 'description', val)}

@@ -17,7 +17,7 @@ const DEFAULT_EXIT: ConversionSettings['exitIntent'] = {
   enabled: false, title: 'Espera! Antes de ir...',
   text: 'Garanta um desconto especial na sua primeira limpeza',
   ctaText: 'Quero meu desconto', ctaLink: '/checkout',
-  dismissText: 'Nao, obrigado', frequency: 'session', delaySeconds: 5,
+  dismissText: 'Não, obrigado', frequency: 'session', delaySeconds: 5,
 };
 
 const DEFAULT_SOCIAL: ConversionSettings['socialProof'] = {
@@ -71,7 +71,7 @@ export const ConversionEditorV2 = memo(({ draft, updateSection }: V2SectionEdito
           Cupom da Campanha
         </Label>
         <p className="text-sm text-muted-foreground">
-          Este cupom sera adicionado automaticamente aos links dos produtos, exit intent e sticky CTA.
+          Este cupom será adicionado automaticamente aos links dos produtos, exit intent e sticky CTA.
           O cupom precisa existir no Stripe.
         </p>
         <DebouncedInputV2

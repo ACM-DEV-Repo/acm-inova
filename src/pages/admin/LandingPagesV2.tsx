@@ -153,11 +153,11 @@ export default function LandingPagesV2() {
     });
 
     if (success) {
-      toast.success('Configuracoes atualizadas!');
+      toast.success('Configurações atualizadas!');
       setEditLp(null);
       loadLPs();
     } else {
-      toast.error('Erro ao atualizar configuracoes');
+      toast.error('Erro ao atualizar configurações');
     }
     setIsEditingSetting(false);
   };
@@ -182,7 +182,7 @@ export default function LandingPagesV2() {
       setDuplicateData({ name: '', slug: '', lp_key: '' });
       loadLPs();
     } else {
-      toast.error('Erro ao duplicar LP. Verifique se o lp_key/slug ja existe.');
+      toast.error('Erro ao duplicar LP. Verifique se o lp_key/slug já existe.');
     }
     setIsDuplicating(false);
   };
@@ -191,11 +191,11 @@ export default function LandingPagesV2() {
     setIsSettingHomepage(true);
     const success = await setHomepage(lpKey);
     if (success) {
-      toast.success('Pagina principal atualizada!');
+      toast.success('Página principal atualizada!');
       const newConfig = await fetchHomepageConfig();
       setHomepageConfig(newConfig);
     } else {
-      toast.error('Erro ao definir pagina principal.');
+      toast.error('Erro ao definir página principal.');
     }
     setIsSettingHomepage(false);
   };
@@ -261,7 +261,7 @@ export default function LandingPagesV2() {
                     Criar Nova Landing Page
                   </DialogTitle>
                   <DialogDescription>
-                    A LP sera criada como rascunho com todas as secoes prontas para editar.
+                    A LP será criada como rascunho com todas as seções prontas para editar.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
@@ -315,7 +315,7 @@ export default function LandingPagesV2() {
               <div className="text-center space-y-2">
                 <h3 className="text-lg font-semibold text-foreground">Nenhuma landing page ainda</h3>
                 <p className="text-sm text-muted-foreground max-w-md">
-                  Crie sua primeira landing page para comecar. Ela vira com todas as secoes prontas para editar.
+                  Crie sua primeira landing page para começar. Ela virá com todas as seções prontas para editar.
                 </p>
               </div>
               <Button className="gap-2 mt-2" onClick={() => setCreateDialogOpen(true)}>
@@ -413,7 +413,7 @@ export default function LandingPagesV2() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => setEditLp({ lp_key: lp.lp_key, name: lp.name, slug: lp.slug })}>
                           <Pencil className="w-4 h-4 mr-2" />
-                          Configuracoes
+                          Configurações
                         </DropdownMenuItem>
                         {!isHomepage(lp) && (
                           <DropdownMenuItem
@@ -457,7 +457,7 @@ export default function LandingPagesV2() {
       <Dialog open={!!editLp} onOpenChange={(open) => !open && setEditLp(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Configuracoes da LP</DialogTitle>
+            <DialogTitle>Configurações da LP</DialogTitle>
           </DialogHeader>
           {editLp && (
             <div className="space-y-4 py-4">
@@ -483,19 +483,19 @@ export default function LandingPagesV2() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditLp(null)}>Cancelar</Button>
             <Button onClick={handleUpdateSettings} disabled={isEditingSetting}>
-              {isEditingSetting ? 'Salvando...' : 'Salvar Alteracoes'}
+              {isEditingSetting ? 'Salvando...' : 'Salvar Alterações'}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* Dialog de Duplicacao */}
+      {/* Dialog de Duplicação */}
       <Dialog open={!!duplicateSource} onOpenChange={(open) => { if (!open) setDuplicateSource(null); }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Duplicar Landing Page</DialogTitle>
             <DialogDescription>
-              Todo o conteudo de "{duplicateSource?.name}" sera copiado para a nova LP.
+              Todo o conteúdo de "{duplicateSource?.name}" será copiado para a nova LP.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -543,13 +543,13 @@ export default function LandingPagesV2() {
         </DialogContent>
       </Dialog>
 
-      {/* Dialog de Exclusao */}
+      {/* Dialog de Exclusão */}
       <Dialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) { setDeleteTarget(null); setDeleteConfirmText(''); } }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-destructive">Excluir Landing Page</DialogTitle>
             <DialogDescription>
-              Esta acao e irreversivel. Todos os dados da LP "{deleteTarget?.name}" ({deleteTarget?.lp_key}) serao permanentemente excluidos.
+              Esta ação é irreversível. Todos os dados da LP "{deleteTarget?.name}" ({deleteTarget?.lp_key}) serão permanentemente excluídos.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">

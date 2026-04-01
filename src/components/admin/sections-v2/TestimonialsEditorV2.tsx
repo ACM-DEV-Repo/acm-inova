@@ -74,9 +74,9 @@ export const TestimonialsEditorV2 = memo(({ draft, updateField, updateSection }:
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('testimonials', 'title', val)}
@@ -183,7 +183,7 @@ export const TestimonialsEditorV2 = memo(({ draft, updateField, updateSection }:
 
               {/* Rating */}
               <div className="space-y-2">
-                <Label>Avaliacao</Label>
+                <Label>Avaliação</Label>
                 {renderStars(index, item.rating || 5)}
               </div>
             </div>

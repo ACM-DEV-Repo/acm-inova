@@ -245,6 +245,8 @@ export const useAdminEditorV2Production = (lpKey: string) => {
       setIsDirty(false);
       setSaveStatus('success');
       setTimeout(() => setSaveStatus('idle'), 3000);
+      // Invalidar cache público da LP pra visitante ver a versão nova imediatamente
+      try { localStorage.removeItem(`cms_v2_cache_${lpKey}`); } catch { /* ignore */ }
     } else {
       setSaveStatus('error');
     }

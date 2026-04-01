@@ -198,7 +198,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
                 onClick={dismiss} aria-label="Fechar"
                 className="text-sm text-muted-foreground/60 hover:text-muted-foreground transition-colors underline underline-offset-2 w-full"
               >
-                {data.dismissText || 'Nao, obrigado'}
+                {data.dismissText || 'Não, obrigado'}
               </button>
             </div>
           </div>

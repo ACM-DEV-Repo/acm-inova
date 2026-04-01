@@ -107,9 +107,9 @@ export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label>Titulo</Label>
+        <Label>Título</Label>
         <DebouncedInputV2
           value={section.title || ''}
           onDebouncedChange={(v) => update({ title: v })}
@@ -117,9 +117,9 @@ export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
         />
       </div>
 
-      {/* Subtitulo */}
+      {/* Subtítulo */}
       <div className="space-y-2">
-        <Label>Subtitulo</Label>
+        <Label>Subtítulo</Label>
         <DebouncedInputV2
           value={section.subtitle || ''}
           onDebouncedChange={(v) => update({ subtitle: v })}
@@ -141,7 +141,7 @@ export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
 
         {tiers.length === 0 && (
           <p className="text-sm text-muted-foreground text-center py-8 border border-dashed border-border rounded-lg">
-            Nenhuma categoria. Clique em "Adicionar Categoria" para comecar.
+            Nenhuma categoria. Clique em "Adicionar Categoria" para começar.
           </p>
         )}
 

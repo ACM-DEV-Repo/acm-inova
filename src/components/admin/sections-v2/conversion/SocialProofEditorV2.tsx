@@ -61,7 +61,7 @@ export function SocialProofEditorV2({ socialProof, onUpdate, onAddItem, onRemove
                 </div>
                 <div className="space-y-1">
                   <Label className="text-foreground text-xs">Mensagem customizada (opcional)</Label>
-                  <DebouncedInputV2 value={item.message || ''} onDebouncedChange={(v) => onUpdateItem(index, 'message', v)} placeholder="Substitui o template padrao" className="input-admin text-sm" />
+                  <DebouncedInputV2 value={item.message || ''} onDebouncedChange={(v) => onUpdateItem(index, 'message', v)} placeholder="Substitui o template padrão" className="input-admin text-sm" />
                 </div>
               </div>
             ))}
@@ -81,7 +81,7 @@ export function SocialProofEditorV2({ socialProof, onUpdate, onAddItem, onRemove
               </div>
             </div>
             <div className="space-y-2">
-              <Label className="text-foreground text-sm">Duracao do toast (segundos)</Label>
+              <Label className="text-foreground text-sm">Duração do toast (segundos)</Label>
               <div className="flex items-center gap-4">
                 <Slider value={[socialProof.toastDuration || 4]} onValueChange={([v]) => onUpdate('toastDuration', v)} min={2} max={10} step={1} className="flex-1" />
                 <span className="text-sm text-foreground font-mono w-8 text-right">{socialProof.toastDuration || 4}s</span>
@@ -95,7 +95,7 @@ export function SocialProofEditorV2({ socialProof, onUpdate, onAddItem, onRemove
               </div>
             </div>
             <div className="space-y-2">
-              <Label className="text-foreground text-sm">Posicao</Label>
+              <Label className="text-foreground text-sm">Posição</Label>
               <Select value={socialProof.position || 'bottom-left'} onValueChange={(v) => onUpdate('position', v)}>
                 <SelectTrigger className="input-admin"><SelectValue /></SelectTrigger>
                 <SelectContent>

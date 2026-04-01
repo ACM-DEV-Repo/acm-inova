@@ -35,7 +35,7 @@ export const TestimonialCardV2 = ({ item }: TestimonialCardV2Props) => {
         <p className="text-sm md:text-base text-muted-foreground">{item.city}</p>
       </div>
 
-      {/* Texto/Citacao */}
+      {/* Texto/Citação */}
       <div className="min-h-[220px] mt-4">
         <p className="italic text-base md:text-lg text-muted-foreground leading-relaxed text-center">
           "{item.text}"

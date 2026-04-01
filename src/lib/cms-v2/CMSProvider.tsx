@@ -4,7 +4,7 @@ import { LPContent } from './cms-types';
 import { fetchLPByRef } from './cms-api';
 import { hexToHSL, adjustHSL, setHSLVar, resolveSafeFont } from './design-utils';
 
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutos
+const CACHE_TTL_MS = 60 * 1000; // 1 minuto
 const REFETCH_COOLDOWN_MS = 30_000; // 30s cooldown entre fetches
 
 interface CacheEntryV2 {

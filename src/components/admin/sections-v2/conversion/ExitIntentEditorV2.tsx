@@ -32,7 +32,7 @@ export function ExitIntentEditorV2({ exitIntent, onUpdate }: ExitIntentEditorPro
       {exitIntent.enabled && (
         <div className="space-y-4 pt-2">
           <div className="space-y-2">
-            <Label className="text-foreground text-sm">Titulo do Popup</Label>
+            <Label className="text-foreground text-sm">Título do Popup</Label>
             <DebouncedInputV2 value={exitIntent.title} onDebouncedChange={(v) => onUpdate('title', v)} placeholder="Espera! Antes de ir..." className="input-admin" />
             <p className="text-xs text-muted-foreground">Use **texto** para negrito e {'{{texto}}'} para destaque colorido.</p>
           </div>
@@ -45,24 +45,24 @@ export function ExitIntentEditorV2({ exitIntent, onUpdate }: ExitIntentEditorPro
 
           <div className="flex items-center gap-2">
             <Switch checked={exitIntent.titleUppercase !== false} onCheckedChange={(v) => onUpdate('titleUppercase', v)} />
-            <Label className="text-foreground text-sm">Titulo em MAIUSCULAS</Label>
+            <Label className="text-foreground text-sm">Título em MAIÚSCULAS</Label>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-foreground text-sm">Texto do Botao CTA</Label>
+              <Label className="text-foreground text-sm">Texto do Botão CTA</Label>
               <DebouncedInputV2 value={exitIntent.ctaText} onDebouncedChange={(v) => onUpdate('ctaText', v)} placeholder="Quero meu desconto" className="input-admin" />
             </div>
             <div className="space-y-2">
               <Label className="text-foreground text-sm">Link do CTA</Label>
               <DebouncedInputV2 value={exitIntent.ctaLink} onDebouncedChange={(v) => onUpdate('ctaLink', v)} placeholder="/checkout" className="input-admin font-mono" />
-              <p className="text-xs text-muted-foreground">O cupom da campanha sera adicionado automaticamente</p>
+              <p className="text-xs text-muted-foreground">O cupom da campanha será adicionado automaticamente</p>
             </div>
           </div>
 
           <div className="space-y-2">
             <Label className="text-foreground text-sm">Texto de dispensa</Label>
-            <DebouncedInputV2 value={exitIntent.dismissText || ''} onDebouncedChange={(v) => onUpdate('dismissText', v)} placeholder="Nao, obrigado" className="input-admin" />
+            <DebouncedInputV2 value={exitIntent.dismissText || ''} onDebouncedChange={(v) => onUpdate('dismissText', v)} placeholder="Não, obrigado" className="input-admin" />
           </div>
 
           <div className="bg-muted/10 rounded-xl p-4 space-y-3">
@@ -72,7 +72,7 @@ export function ExitIntentEditorV2({ exitIntent, onUpdate }: ExitIntentEditorPro
             </div>
             {exitIntent.imageUrl?.trim() && (
               <div className="space-y-2">
-                <Label className="text-foreground text-xs">Posicao da Imagem</Label>
+                <Label className="text-foreground text-xs">Posição da Imagem</Label>
                 <Select value={exitIntent.imagePosition || 'top'} onValueChange={(v) => onUpdate('imagePosition', v)}>
                   <SelectTrigger className="input-admin"><SelectValue /></SelectTrigger>
                   <SelectContent>

@@ -25,22 +25,22 @@ export const CTAFinalEditorV2 = memo(({ draft, updateField }: V2SectionEditorPro
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('ctaFinal', 'title', val)}
-          placeholder="Ex: Pronto para comecar?"
+          placeholder="Ex: Pronto para começar?"
         />
         <p className="text-xs text-muted-foreground">
           Use **texto** para negrito e {'{{texto}}'} para destaque colorido.
         </p>
       </div>
 
-      {/* Subtitulo */}
+      {/* Subtítulo */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Subtitulo</Label>
+        <Label className="text-foreground font-semibold">Subtítulo</Label>
         <DebouncedTextareaV2
           value={section?.subtitle || ''}
           onDebouncedChange={(val) => updateField('ctaFinal', 'subtitle', val)}
@@ -52,10 +52,10 @@ export const CTAFinalEditorV2 = memo(({ draft, updateField }: V2SectionEditorPro
         </p>
       </div>
 
-      {/* Botao */}
+      {/* Botão */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-foreground font-semibold">Texto do Botao</Label>
+          <Label className="text-foreground font-semibold">Texto do Botão</Label>
           <DebouncedInputV2
             value={section?.buttonText || ''}
             onDebouncedChange={(val) => updateField('ctaFinal', 'buttonText', val)}
@@ -63,7 +63,7 @@ export const CTAFinalEditorV2 = memo(({ draft, updateField }: V2SectionEditorPro
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-foreground font-semibold">Link do Botao</Label>
+          <Label className="text-foreground font-semibold">Link do Botão</Label>
           <DebouncedInputV2
             value={section?.buttonLink || ''}
             onDebouncedChange={(val) => updateField('ctaFinal', 'buttonLink', val)}
@@ -74,14 +74,14 @@ export const CTAFinalEditorV2 = memo(({ draft, updateField }: V2SectionEditorPro
 
       {/* Trust Text */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Texto de confianca (opcional)</Label>
+        <Label className="text-foreground font-semibold">Texto de confiança (opcional)</Label>
         <DebouncedInputV2
           value={section?.trustText || ''}
           onDebouncedChange={(val) => updateField('ctaFinal', 'trustText', val)}
           placeholder="Ex: Sem contrato. Cancele quando quiser."
         />
         <p className="text-xs text-muted-foreground">
-          Micro-copy exibido abaixo do botao para reduzir fricao.
+          Micro-copy exibido abaixo do botão para reduzir fricção.
         </p>
       </div>
 

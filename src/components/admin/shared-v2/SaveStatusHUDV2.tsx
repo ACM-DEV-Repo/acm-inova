@@ -46,7 +46,7 @@ export const SaveStatusHUDV2 = ({ status, lastSaved }: SaveStatusHUDV2Props) => 
         )}
 
         <span className="font-medium">
-          {status === 'unsaved' && 'Alteracoes nao salvas'}
+          {status === 'unsaved' && 'Alterações não salvas'}
           {status === 'saving' && 'Salvando...'}
           {status === 'success' && 'Salvo'}
           {status === 'error' && 'Erro ao salvar!'}

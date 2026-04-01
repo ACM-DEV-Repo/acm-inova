@@ -160,10 +160,10 @@ export const PlansEditorV2 = memo(({
                 </div>
               </div>
 
-              {/* Icone + Dados Basicos */}
+              {/* Ícone + Dados Básicos */}
               <div className="grid md:grid-cols-4 gap-4">
                 <div>
-                  <Label className="text-foreground font-semibold mb-2 block">Icone</Label>
+                  <Label className="text-foreground font-semibold mb-2 block">Ícone</Label>
                   <IconPickerV2
                     value={item.icon || ''}
                     onChange={(v) => updateItem(index, 'icon', v)}
@@ -232,7 +232,7 @@ export const PlansEditorV2 = memo(({
               {/* CTA Text, Texto de Suporte e Link */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div>
-                  <Label className="text-foreground font-semibold mb-2 block">Texto do Botao</Label>
+                  <Label className="text-foreground font-semibold mb-2 block">Texto do Botão</Label>
                   <DebouncedInputV2
                     value={item.ctaText || ''}
                     onDebouncedChange={(v) => updateItem(index, 'ctaText', v)}

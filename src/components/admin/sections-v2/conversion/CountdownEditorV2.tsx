@@ -57,7 +57,7 @@ export function CountdownEditorV2({ countdown, onUpdate }: CountdownEditorProps)
 
           {countdown.mode === 'evergreen' && (
             <div className="space-y-2">
-              <Label className="text-foreground text-sm">Duracao (horas)</Label>
+              <Label className="text-foreground text-sm">Duração (horas)</Label>
               <div className="flex items-center gap-4">
                 <Slider value={[countdown.evergreenHours || 24]} onValueChange={([v]) => onUpdate('evergreenHours', v)} min={1} max={72} step={1} className="flex-1" />
                 <span className="text-sm text-foreground font-mono w-12 text-right">{countdown.evergreenHours || 24}h</span>

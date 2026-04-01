@@ -24,9 +24,9 @@ export const VideoEditorV2 = memo(({ draft, updateField, updateSection }: V2Sect
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('video', 'title', val)}
@@ -34,9 +34,9 @@ export const VideoEditorV2 = memo(({ draft, updateField, updateSection }: V2Sect
         />
       </div>
 
-      {/* Subtitulo */}
+      {/* Subtítulo */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Subtitulo</Label>
+        <Label className="text-foreground font-semibold">Subtítulo</Label>
         <DebouncedInputV2
           value={section?.subtitle || ''}
           onDebouncedChange={(val) => updateField('video', 'subtitle', val)}

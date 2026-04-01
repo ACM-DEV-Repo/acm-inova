@@ -159,7 +159,7 @@ export const FloatingWhatsappEditorV2 = memo(({ draft, updateField, updateSectio
         {sticky.enabled && (
           <div className="space-y-4 pt-2">
             <div className="space-y-2">
-              <Label className="text-foreground text-sm">Texto do Botao</Label>
+              <Label className="text-foreground text-sm">Texto do Botão</Label>
               <DebouncedInputV2
                 value={sticky.text}
                 onDebouncedChange={(v) => updateSticky('text', v)}
@@ -177,7 +177,7 @@ export const FloatingWhatsappEditorV2 = memo(({ draft, updateField, updateSectio
                 className="input-admin font-mono"
               />
               <p className="text-xs text-muted-foreground">
-                O cupom da campanha (se configurado) sera adicionado automaticamente
+                O cupom da campanha (se configurado) será adicionado automaticamente
               </p>
             </div>
 

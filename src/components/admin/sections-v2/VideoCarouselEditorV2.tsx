@@ -51,9 +51,9 @@ export const VideoCarouselEditorV2 = memo(({ draft, updateField, updateSection }
         </div>
       </div>
 
-      {/* Titulo */}
+      {/* Título */}
       <div className="space-y-2">
-        <Label className="text-foreground font-semibold">Titulo</Label>
+        <Label className="text-foreground font-semibold">Título</Label>
         <DebouncedInputV2
           value={section?.title || ''}
           onDebouncedChange={(val) => updateField('videoCarousel', 'title', val)}
@@ -61,10 +61,10 @@ export const VideoCarouselEditorV2 = memo(({ draft, updateField, updateSection }
         />
       </div>
 
-      {/* Lista de Videos */}
+      {/* Lista de Vídeos */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label className="text-foreground font-semibold">Videos ({items.length})</Label>
+          <Label className="text-foreground font-semibold">Vídeos ({items.length})</Label>
           <Button type="button" variant="outline" size="sm" onClick={addItem}>
             <Plus className="h-4 w-4 mr-1" />
             Adicionar
@@ -121,7 +121,7 @@ export const VideoCarouselEditorV2 = memo(({ draft, updateField, updateSection }
               </div>
 
               <div className="space-y-2">
-                <Label>Titulo</Label>
+                <Label>Título</Label>
                 <DebouncedInputV2
                   value={item.title || ''}
                   onDebouncedChange={(val) => updateItem(index, 'title', val)}
