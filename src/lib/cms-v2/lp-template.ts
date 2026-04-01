@@ -28,7 +28,7 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
     title: '',
     subtitle: '',
     ctaPrimary: { text: 'Contratar agora', link: '#plans' },
-    ctaSecondary: { text: 'Saiba mais', link: '#beneficios' },
+    ctaSecondary: { text: 'Saiba mais', link: '#benefits' },
     imageDesktop: '',
     imageMobile: '',
     imagePosition: 'center',
