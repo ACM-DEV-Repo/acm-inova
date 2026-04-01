@@ -1,10 +1,12 @@
--- RLS: exigir auth para escrita, leitura publica para LPs e insert de formularios
+-- RLS: exigir auth para escrita, leitura publica apenas LPs ativas
 
--- bd_cms_lp_v2: leitura publica, escrita autenticada
+-- bd_cms_lp_v2: publico le apenas status=active, autenticado le tudo, escrita autenticada
 DROP POLICY IF EXISTS "Admin full access V2" ON public.bd_cms_lp_v2;
+DROP POLICY IF EXISTS "Public read active LPs" ON public.bd_cms_lp_v2;
+DROP POLICY IF EXISTS "Public read for active LPs V2" ON public.bd_cms_lp_v2;
 
-CREATE POLICY "Public read active LPs" ON public.bd_cms_lp_v2
-  FOR SELECT USING (true);
+CREATE POLICY "Public read active only" ON public.bd_cms_lp_v2
+  FOR SELECT USING (status = 'active' OR auth.uid() IS NOT NULL);
 
 CREATE POLICY "Auth write LPs" ON public.bd_cms_lp_v2
   FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
