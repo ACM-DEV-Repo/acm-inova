@@ -20,7 +20,7 @@ export const KPIsV2 = ({ data, lpKey, couponCode }: KPIsV2Props) => {
   if (enabledKpis.length === 0) return null;
 
   return (
-    <section id="kpis" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
           {enabledKpis.map((kpi, idx) => {

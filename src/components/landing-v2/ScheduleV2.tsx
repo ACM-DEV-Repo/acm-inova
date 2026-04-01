@@ -18,7 +18,7 @@ export const ScheduleV2 = memo(({ data, lpKey, couponCode }: Props) => {
   const currentDay = data.days[activeDay];
 
   return (
-    <section id="schedule" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         {(data.title || data.subtitle) && (

@@ -15,7 +15,7 @@ export const CTAFinalV2 = ({ data, lpKey, couponCode, conversion }: CTAFinalV2Pr
   if (!data || data.enabled === false) return null;
 
   return (
-    <section id="ctaFinal" className="w-full py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
       {/* Background Image */}
       {(data.imageDesktop || data.imageMobile) && (
         <div className="absolute inset-0 z-0">

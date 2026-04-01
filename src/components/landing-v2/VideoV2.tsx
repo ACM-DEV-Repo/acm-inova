@@ -44,7 +44,7 @@ export const VideoV2 = ({ data, lpKey, couponCode }: VideoV2Props) => {
   const thumbnail = getYouTubeThumbnail(data.url || '');
 
   return (
-    <section id="video" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}

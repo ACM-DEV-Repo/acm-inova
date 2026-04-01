@@ -20,7 +20,7 @@ export const HeroV2 = ({ data, lpKey, couponCode }: HeroV2Props) => {
   const posClass = OBJ_POSITION[data.imagePosition || 'center'] || 'object-center';
 
   return (
-    <section id="hero" className="relative w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center px-4 md:px-6 py-16 md:py-24 overflow-hidden">
+    <section className="relative w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center px-4 md:px-6 py-16 md:py-24 overflow-hidden">
       {data.imageDesktop && (
         <>
           <img

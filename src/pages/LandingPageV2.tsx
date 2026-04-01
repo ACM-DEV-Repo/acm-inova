@@ -104,7 +104,11 @@ export const LandingPageV2Content = () => {
       <TrackingHeadV2 tracking={resolveTrackingV2(content.tracking, globalTracking)} seo={content.seo} lpKey={lpKey} />
       {hasMenu && <GlobalMenuV2 data={content.globalMenu} footer={content.footer} />}
       <div className={hasMenu ? 'pt-16' : ''}>
-        {sectionOrder.map((sectionId, index) => renderSection(sectionId, content, lpKey, index))}
+        {sectionOrder.map((sectionId, index) => {
+          const section = renderSection(sectionId, content, lpKey, index);
+          if (!section) return null;
+          return <div key={`anchor-${sectionId}-${index}`} id={sectionId}>{section}</div>;
+        })}
       </div>
       <FooterV2 data={content.footer} lpKey={lpKey} />
       <WhatsAppButtonV2 data={content.floatingWhatsapp} lpKey={lpKey} />

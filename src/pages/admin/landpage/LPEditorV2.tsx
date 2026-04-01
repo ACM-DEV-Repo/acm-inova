@@ -364,8 +364,12 @@ export default function LPEditorV2() {
       {/* ========== Area principal ========== */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between sticky top-0 z-10 admin-glass-toolbar py-3 px-6">
-          <h1 className="text-lg font-bold text-foreground">
+          <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
             {SECTIONS.flatMap((g) => g.items).find((i) => i.key === activeSection)?.label ?? 'Editor'}
+            {/* Badge de âncora — vem da key da seção (fonte única: sectionOrder do banco) */}
+            {SECTIONS[1]?.items.some(i => i.key === activeSection) && (
+              <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md">#{activeSection}</span>
+            )}
           </h1>
 
           <div className="flex items-center gap-3">

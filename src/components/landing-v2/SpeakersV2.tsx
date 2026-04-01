@@ -122,7 +122,7 @@ export const SpeakersV2 = memo(({ data, lpKey, couponCode }: Props) => {
   const isFeaturedLayout = data.layout === 'featured';
 
   return (
-    <section id="speakers" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         {(data.title || data.subtitle) && (

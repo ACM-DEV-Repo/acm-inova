@@ -34,7 +34,7 @@ export const WhyChooseEditorV2 = memo(({ draft, updateField, updateSection }: V2
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       {/* Header com toggle */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-foreground">Por que Escolher <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md ml-2">#whyChoose</span></h2>
+        <h2 className="text-xl font-semibold text-foreground">Por que Escolher</h2>
         <div className="flex items-center gap-2">
           <Label htmlFor="whyChoose-enabled" className="text-sm font-normal">Ativada</Label>
           <Switch

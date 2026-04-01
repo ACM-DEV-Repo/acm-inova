@@ -36,7 +36,7 @@ export const SponsorsV2 = memo(({ data, lpKey, couponCode }: Props) => {
   if (activeTiers.length === 0) return null;
 
   return (
-    <section id="sponsors" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         {(data.title || data.subtitle) && (

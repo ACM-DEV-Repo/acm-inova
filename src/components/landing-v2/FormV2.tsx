@@ -277,7 +277,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
   // Success Card View
   if (showSuccessCard) {
     return (
-      <section id="form" className="w-full py-16 md:py-24 px-4 md:px-6">
+      <section className="w-full py-16 md:py-24 px-4 md:px-6">
         <div className="max-w-2xl mx-auto">
           <div className="glass-card p-10 md:p-16 text-center">
             {data?.successAction?.successImage ? (
@@ -302,7 +302,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
   }
 
   return (
-    <section id="form" className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
           {data?.title || 'Assine agora'}
