@@ -13,7 +13,7 @@ export const VideoEditorV2 = memo(({ draft, updateField, updateSection }: V2Sect
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       {/* Header com toggle */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-foreground">Video</h2>
+        <h2 className="text-xl font-semibold text-foreground">Video <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md ml-2">#video</span></h2>
         <div className="flex items-center gap-2">
           <Label htmlFor="video-enabled" className="text-sm font-normal">Ativada</Label>
           <Switch

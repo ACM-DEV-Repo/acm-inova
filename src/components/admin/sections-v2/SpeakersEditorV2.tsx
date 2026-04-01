@@ -76,7 +76,7 @@ export const SpeakersEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Mic2 className="h-5 w-5 text-accent" />
-          <h3 className="text-lg font-bold text-foreground">Palestrantes</h3>
+          <h3 className="text-lg font-bold text-foreground">Palestrantes <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md ml-2">#speakers</span></h3>
         </div>
         <div className="flex items-center gap-2">
           <Label htmlFor="speakers-enabled" className="text-sm text-muted-foreground">

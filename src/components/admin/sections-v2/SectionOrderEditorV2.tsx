@@ -30,12 +30,12 @@ import { CSS } from "@dnd-kit/utilities";
 // Labels de cada secao
 // ============================================================
 const SECTION_LABELS: Record<string, string> = {
-  hero: 'Hero',
+  hero: 'Destaque',
   benefits: 'Beneficios',
   howItWorks: 'Como Funciona',
   plans: 'Produtos',
   testimonials: 'Depoimentos',
-  kpis: 'KPIs',
+  kpis: 'Numeros',
   speakers: 'Palestrantes',
   sponsors: 'Patrocinadores',
   about: 'Sobre',
@@ -47,7 +47,7 @@ const SECTION_LABELS: Record<string, string> = {
   video: 'Video',
   videoCarousel: 'Carrossel de Videos',
   whyChoose: 'Por que Escolher',
-  ctaFinal: 'CTA Final',
+  ctaFinal: 'Chamada Final',
   faq: 'FAQ',
   form: 'Formulario',
   forWhom: 'Para Quem',

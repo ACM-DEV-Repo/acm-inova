@@ -32,7 +32,7 @@ export const KPIsEditorV2 = memo(({ draft, updateField, updateSection }: V2Secti
   return (
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-foreground">KPIs / Números</h2>
+        <h2 className="text-2xl font-bold text-foreground">Numeros de Impacto <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md ml-2">#kpis</span></h2>
         <div className="flex items-center space-x-2">
           <Switch
             checked={kpis?.enabled !== false}
