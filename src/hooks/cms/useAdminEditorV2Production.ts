@@ -20,6 +20,7 @@ export const useAdminEditorV2Production = (lpKey: string) => {
   const draftRef = useRef<LPContent | null>(null);
   const serverContentRef = useRef<LPContent | null>(null);
   const touchedFieldsRef = useRef<Set<string>>(new Set());
+  const slugRef = useRef<string>('');
 
   const { loadFromDatabase, persistToDatabase, isSyncing, lastSavedAt } = useCMSSync(lpKey);
 
@@ -138,6 +139,7 @@ export const useAdminEditorV2Production = (lpKey: string) => {
         setDraft(record.content);
         draftRef.current = record.content;
         serverContentRef.current = record.content;
+        slugRef.current = record.slug || '';
         initializedRef.current = true;
       }
     };
@@ -245,8 +247,13 @@ export const useAdminEditorV2Production = (lpKey: string) => {
       setIsDirty(false);
       setSaveStatus('success');
       setTimeout(() => setSaveStatus('idle'), 3000);
-      // Invalidar cache público da LP pra visitante ver a versão nova imediatamente
-      try { localStorage.removeItem(`cms_v2_cache_${lpKey}`); } catch { /* ignore */ }
+      // Invalidar cache público da LP (por lp_key E slug — CMSProvider usa slug como key)
+      try {
+        localStorage.removeItem(`cms_v2_cache_${lpKey}`);
+        if (slugRef.current && slugRef.current !== lpKey) {
+          localStorage.removeItem(`cms_v2_cache_${slugRef.current}`);
+        }
+      } catch { /* ignore */ }
     } else {
       setSaveStatus('error');
     }
