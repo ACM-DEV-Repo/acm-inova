@@ -31,7 +31,7 @@ export const FooterEditorV2 = memo(({ draft, updateField, updateNestedField, upd
   return (
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-foreground">Rodape <span className="text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md ml-2">#footer</span></h2>
+        <h2 className="text-2xl font-bold text-foreground">Rodapé</h2>
         <div className="flex items-center space-x-2">
           <Switch
             checked={footer?.enabled !== false}

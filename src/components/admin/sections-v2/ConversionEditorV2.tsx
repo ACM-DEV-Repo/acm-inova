@@ -62,7 +62,7 @@ export const ConversionEditorV2 = memo(({ draft, updateSection }: V2SectionEdito
 
   return (
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
-      <h2 className="text-2xl font-bold text-foreground mb-4">Conversao</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-4">Conversão</h2>
 
       {/* Cupom */}
       <div className="bg-muted/20 rounded-2xl p-6 space-y-4">

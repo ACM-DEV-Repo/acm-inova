@@ -31,25 +31,25 @@ import { CSS } from "@dnd-kit/utilities";
 // ============================================================
 const SECTION_LABELS: Record<string, string> = {
   hero: 'Destaque',
-  benefits: 'Beneficios',
+  benefits: 'Benefícios',
   howItWorks: 'Como Funciona',
   plans: 'Produtos',
   testimonials: 'Depoimentos',
-  kpis: 'Numeros',
+  kpis: 'Números',
   speakers: 'Palestrantes',
   sponsors: 'Patrocinadores',
   about: 'Sobre',
   contact: 'Contato',
   beforeAfter: 'Antes e Depois',
   process: 'Processo',
-  services: 'Servicos',
-  schedule: 'Programacao',
-  video: 'Video',
-  videoCarousel: 'Carrossel de Videos',
+  services: 'Serviços',
+  schedule: 'Programação',
+  video: 'Vídeo',
+  videoCarousel: 'Carrossel de Vídeos',
   whyChoose: 'Por que Escolher',
   ctaFinal: 'Chamada Final',
   faq: 'FAQ',
-  form: 'Formulario',
+  form: 'Formulário',
   forWhom: 'Para Quem',
 };
 
@@ -193,7 +193,7 @@ export const SectionOrderEditorV2 = memo(({ draft, updateField, updateSection }:
 
   return (
     <div className="glass-primitive rounded-3xl p-10 space-y-6">
-      <h2 className="text-2xl font-bold text-foreground mb-4">Ordem das Secoes</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-4">Ordem das Seções</h2>
 
       {/* Secoes Ativas — drag-and-drop */}
       <div className="bg-muted/20 rounded-2xl p-6 space-y-4">
