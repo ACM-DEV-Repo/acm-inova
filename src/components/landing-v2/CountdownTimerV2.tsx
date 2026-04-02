@@ -15,9 +15,22 @@ interface TimeLeft {
 
 const COOKIE_PREFIX = 'lp_countdown_';
 
+/** Limpa entradas antigas do mesmo lpKey/modo que não batem com a config atual */
+const cleanOldKeys = (lpKey: string, currentKey: string, modePrefix: string) => {
+  try {
+    const prefix = `${COOKIE_PREFIX}${lpKey}_${modePrefix}`;
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix) && k !== currentKey) {
+        localStorage.removeItem(k);
+      }
+    }
+  } catch { /* ignore */ }
+};
+
 const getEvergreenDeadline = (lpKey: string, hours: number): number => {
-  // Chave inclui hours — se admin mudar a config, deadline reseta
   const key = `${COOKIE_PREFIX}${lpKey}_eg_${hours}h`;
+  cleanOldKeys(lpKey, key, 'eg');
   const stored = localStorage.getItem(key);
   if (stored) {
     const deadline = parseInt(stored, 10);
@@ -34,8 +47,8 @@ const getEvergreenDeadline = (lpKey: string, hours: number): number => {
  * Usa localStorage para manter consistente durante a visita.
  */
 const getRoundHourDeadline = (lpKey: string, hoursAhead: number): number => {
-  // Chave inclui hoursAhead — se admin mudar a config, deadline reseta
   const key = `${COOKIE_PREFIX}${lpKey}_rh_${hoursAhead}h`;
+  cleanOldKeys(lpKey, key, 'rh');
   const stored = localStorage.getItem(key);
   if (stored) {
     const deadline = parseInt(stored, 10);
