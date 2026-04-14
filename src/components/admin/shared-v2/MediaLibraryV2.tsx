@@ -2,10 +2,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Upload, Check, Loader2, Image as ImageIcon, Sliders } from 'lucide-react';
+import { Search, Upload, Check, Loader2, Image as ImageIcon, Sliders, Sparkles } from 'lucide-react';
 import { listMedia, searchMedia, uploadAndRegister, type MediaItem } from '@/lib/cms-v2/media-api';
 import { toast } from 'sonner';
 import { ImageEditorV2 } from './ImageEditorV2';
+import { SpeakerPortraitV2 } from './SpeakerPortraitV2';
 
 interface MediaLibraryV2Props {
   open: boolean;
@@ -13,7 +14,7 @@ interface MediaLibraryV2Props {
   onSelect: (url: string) => void;
 }
 
-type Tab = 'library' | 'editor';
+type Tab = 'library' | 'editor' | 'portrait';
 
 export const MediaLibraryV2 = ({ open, onOpenChange, onSelect }: MediaLibraryV2Props) => {
   const [tab, setTab] = useState<Tab>('library');
@@ -87,6 +88,7 @@ export const MediaLibraryV2 = ({ open, onOpenChange, onSelect }: MediaLibraryV2P
   const TABS: { key: Tab; label: string; icon: typeof ImageIcon }[] = [
     { key: 'library', label: 'Biblioteca', icon: ImageIcon },
     { key: 'editor', label: 'Editor', icon: Sliders },
+    { key: 'portrait', label: 'Retrato IA', icon: Sparkles },
   ];
 
   return (
@@ -111,6 +113,11 @@ export const MediaLibraryV2 = ({ open, onOpenChange, onSelect }: MediaLibraryV2P
             </button>
           ))}
         </div>
+
+        {/* ===== Tab: Retrato IA ===== */}
+        {tab === 'portrait' && (
+          <SpeakerPortraitV2 items={items} onSaved={handleSaved} onRefresh={load} />
+        )}
 
         {/* ===== Tab: Editor (remover fundo + ajustes + IA) ===== */}
         {tab === 'editor' && (
