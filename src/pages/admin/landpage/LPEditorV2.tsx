@@ -160,11 +160,6 @@ export default function LPEditorV2() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [lpStatus, setLpStatus] = useState<LPStatus>('draft');
 
-  useEffect(() => {
-    if (lpKey) {
-      fetchLPByRef(lpKey).then(lp => { if (lp) setLpStatus(lp.status); });
-    }
-  }, [lpKey]);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     SECTIONS.forEach((g) => {
@@ -185,19 +180,16 @@ export default function LPEditorV2() {
     saveNow,
   } = useAdminEditorV2Production(lpKey ?? '');
 
-  if (!lpKey) {
-    return <Navigate to="/admin/lps" replace />;
-  }
-
-  const handleManualSave = async () => {
-    const success = await saveNow();
-    if (success) {
-      toast.success('Salvo com sucesso!');
-    } else {
-      toast.error('Erro ao salvar');
+  // Fetch LP status on mount
+  useEffect(() => {
+    if (lpKey) {
+      fetchLPByRef(lpKey)
+        .then(lp => { if (lp) setLpStatus(lp.status); })
+        .catch(err => { import('@sentry/react').then(S => S.captureException(err)); });
     }
-  };
+  }, [lpKey]);
 
+  // Warn before leaving with unsaved changes
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isDirty) {
@@ -211,6 +203,20 @@ export default function LPEditorV2() {
   const toggleGroup = (group: string) => {
     setOpenGroups((prev) => ({ ...prev, [group]: !prev[group] }));
   };
+
+  const handleManualSave = async () => {
+    const success = await saveNow();
+    if (success) {
+      toast.success('Salvo com sucesso!');
+    } else {
+      toast.error('Erro ao salvar');
+    }
+  };
+
+  // ---- Early returns AFTER all hooks ----
+  if (!lpKey) {
+    return <Navigate to="/admin/lps" replace />;
+  }
 
   if (isLoading) {
     return (
@@ -282,7 +288,7 @@ export default function LPEditorV2() {
   };
 
   return (
-    <div className="flex gap-0 min-h-screen">
+    <div className="flex gap-0 h-screen overflow-hidden">
       {/* ========== Sidebar interno — Apple glass ========== */}
       <aside className="w-64 shrink-0 admin-glass-sidebar sticky top-0 self-start max-h-screen overflow-y-auto">
         <div className="p-4 border-b border-black/[0.06]">
@@ -337,6 +343,8 @@ export default function LPEditorV2() {
                     {group.items.map((item) => {
                       const ItemIcon = item.icon;
                       const isActive = activeSection === item.key;
+                      const sectionData = draft?.[item.key as keyof typeof draft] as { enabled?: boolean } | undefined;
+                      const isEnabled = group.group === 'Seções' && sectionData?.enabled === true;
 
                       return (
                         <button
@@ -345,10 +353,12 @@ export default function LPEditorV2() {
                           className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-[13px] transition-all duration-200 ${
                             isActive
                               ? 'bg-primary/8 text-primary font-semibold shadow-sm shadow-primary/5 border border-primary/10'
-                              : 'text-foreground/60 hover:bg-black/[0.03] hover:text-foreground'
+                              : isEnabled
+                                ? 'text-blue-600 font-medium hover:bg-black/[0.03]'
+                                : 'text-foreground/60 hover:bg-black/[0.03] hover:text-foreground'
                           }`}
                         >
-                          <ItemIcon className={`h-3.5 w-3.5 shrink-0 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                          <ItemIcon className={`h-3.5 w-3.5 shrink-0 ${isActive ? 'text-primary' : isEnabled ? 'text-blue-600' : 'text-muted-foreground'}`} />
                           <span className="truncate">{item.label}</span>
                         </button>
                       );
@@ -362,7 +372,7 @@ export default function LPEditorV2() {
       </aside>
 
       {/* ========== Area principal ========== */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 overflow-y-auto">
         <div className="flex items-center justify-between sticky top-0 z-10 admin-glass-toolbar py-3 px-6">
           <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
             {SECTIONS.flatMap((g) => g.items).find((i) => i.key === activeSection)?.label ?? 'Editor'}
@@ -377,8 +387,31 @@ export default function LPEditorV2() {
               <Button
                 size="sm"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5"
+                disabled={isDirty}
+                title={isDirty ? 'Salve as alterações antes de publicar' : undefined}
                 onClick={async () => {
                   if (isDirty) { toast.error('Salve as alterações antes de publicar'); return; }
+                  const checks = [
+                    { label: 'Título do hero', ok: !!draft?.hero?.title?.trim() },
+                    { label: 'Imagem do hero', ok: !!draft?.hero?.imageDesktop?.trim() },
+                    { label: 'CTA com link', ok: !!draft?.hero?.ctaPrimary?.link?.trim() && draft?.hero?.ctaPrimary?.link !== '#' },
+                    { label: 'SEO título', ok: !!draft?.seo?.metaTitle?.trim() },
+                  ];
+                  const missing = checks.filter(c => !c.ok).map(c => c.label);
+                  if (missing.length > 0) {
+                    toast.warning(`Itens faltando: ${missing.join(', ')}`, {
+                      action: {
+                        label: 'Publicar assim',
+                        onClick: async () => {
+                          const ok = await updateLPStatus(lpKey, 'active');
+                          if (ok) { setLpStatus('active'); toast.success('LP publicada!'); }
+                          else toast.error('Erro ao publicar');
+                        },
+                      },
+                      duration: 10000,
+                    });
+                    return;
+                  }
                   const ok = await updateLPStatus(lpKey, 'active');
                   if (ok) { setLpStatus('active'); toast.success('LP publicada!'); }
                   else toast.error('Erro ao publicar');

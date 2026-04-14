@@ -23,6 +23,7 @@ import {
   Trophy,
   Palette,
 } from 'lucide-react';
+import { IconPickerV2 } from '@/components/admin/shared-v2/IconPickerV2';
 
 export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorProps) => {
   const section = (draft.sponsors ?? {}) as SponsorsSection;
@@ -164,6 +165,10 @@ export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
                   checked={tier.enabled}
                   onCheckedChange={(v) => updateTier(tierIndex, 'enabled', v)}
                 />
+                <IconPickerV2
+                  value={tier.icon}
+                  onChange={(v) => updateTier(tierIndex, 'icon', v || undefined)}
+                />
                 <DebouncedInputV2
                   value={tier.name || ''}
                   onDebouncedChange={(v) => updateTier(tierIndex, 'name', v)}
@@ -280,6 +285,7 @@ export const SponsorsEditorV2 = memo(({ draft, updateSection }: V2SectionEditorP
                         onChange={(url) => updateSponsor(tierIndex, sponsorIndex, 'logo', url)}
                         label="Logo"
                         recommendedSize="200x100px"
+                        shape="landscape"
                       />
                     </div>
 

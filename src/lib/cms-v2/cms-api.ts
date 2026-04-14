@@ -41,10 +41,13 @@ const recordToInsert = (record: Omit<LPRecord, 'id' | 'created_at' | 'updated_at
  */
 export const fetchLPByRef = async (ref: string): Promise<LPRecord | null> => {
   try {
+    const safeRef = ref.replace(/[^a-zA-Z0-9\-_]/g, '');
+    if (!safeRef) return null;
+
     const { data, error } = await supabase
       .from('bd_cms_lp_v2')
       .select('*')
-      .or(`lp_key.eq.${ref},slug.eq.${ref}`)
+      .or(`lp_key.eq.${safeRef},slug.eq.${safeRef}`)
       .single();
 
     if (error) {

@@ -17,13 +17,13 @@ export const FAQV2 = ({ data, lpKey, couponCode }: FAQV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <div className="glass-card p-6 md:p-10 lg:p-12">
+        <div className="glass-card p-6 md:p-10 lg:p-12 mt-6 md:mt-8">
           <Accordion type="single" collapsible className="space-y-4 md:space-y-6">
             {data.items?.map((item, index) => (
               <AccordionItem

@@ -166,6 +166,7 @@ export const ExitIntentPopupV2 = memo(({ data, coupon, lpKey }: ExitIntentPopupV
               <img
                 src={data.imageUrl}
                 alt=""
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </div>

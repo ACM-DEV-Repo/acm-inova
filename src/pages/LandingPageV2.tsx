@@ -90,15 +90,14 @@ export const LandingPageV2Content = () => {
   return (
     <main className="min-h-screen lp-v2-content" style={gradientStyle}>
       <style>{`
-        .lp-v2-content > div > section {
-          padding-top: var(--ds-section-py, 4rem);
-          padding-bottom: var(--ds-section-py, 4rem);
+        .lp-v2-content section,
+        .lp-v2-content footer {
+          padding-top: 100px;
+          padding-bottom: 100px;
         }
-        @media (min-width: 768px) {
-          .lp-v2-content > div > section {
-            padding-top: calc(var(--ds-section-py, 4rem) * 1.5);
-            padding-bottom: calc(var(--ds-section-py, 4rem) * 1.5);
-          }
+        .lp-v2-content section > div,
+        .lp-v2-content footer > div {
+          display: flow-root;
         }
       `}</style>
       <TrackingHeadV2 tracking={resolveTrackingV2(content.tracking, globalTracking)} seo={content.seo} lpKey={lpKey} />
@@ -107,7 +106,11 @@ export const LandingPageV2Content = () => {
         {sectionOrder.map((sectionId, index) => {
           const section = renderSection(sectionId, content, lpKey, index);
           if (!section) return null;
-          return <div key={`anchor-${sectionId}-${index}`} id={sectionId}>{section}</div>;
+          return (
+            <div key={`anchor-${sectionId}-${index}`} id={sectionId}>
+              {section}
+            </div>
+          );
         })}
       </div>
       <FooterV2 data={content.footer} lpKey={lpKey} />

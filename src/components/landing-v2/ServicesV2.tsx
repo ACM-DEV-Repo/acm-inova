@@ -12,16 +12,16 @@ export const ServicesV2 = ({ data, lpKey, couponCode }: ServicesV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <ul className="flex flex-wrap justify-center gap-5 md:gap-6 mt-6 md:mt-8">
           {data.items?.map((item, index) =>
             item.enabled !== false ? (
-              <li key={index} className="glass-card px-6 md:px-8 py-5 md:py-6 flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300">
+              <li key={index} className="glass-card px-6 md:px-8 py-5 md:py-6 flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)]">
                 <div className="w-6 h-6 rounded-full bg-[hsl(var(--ds-color-icon))] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check size={14} className="text-[hsl(var(--ds-color-btn-text))] stroke-[3]" />
                 </div>

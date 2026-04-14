@@ -63,6 +63,8 @@ export type FloatingWhatsappSettings = {
 };
 
 // ========== Section Definitions ==========
+export type HeroBackgroundType = 'image' | 'aurora' | 'gradient-mesh' | 'particles' | 'heartbeat' | 'xray' | 'stethoscope' | 'microscopy' | 'ai' | 'heart';
+
 export interface HeroSection {
   enabled?: boolean;
   title: string;
@@ -72,6 +74,16 @@ export interface HeroSection {
   imageDesktop: string;
   imageMobile: string;
   imagePosition?: 'top' | 'center' | 'bottom';
+  backgroundType?: HeroBackgroundType;
+  heroLogo?: string;
+  tagline?: string;
+  logoHighlight?: {
+    enabled: boolean;
+    color?: string;
+    opacity?: number;
+  };
+  logoShadow?: boolean;
+  logoShadowIntensity?: number;
   footerCta?: SectionFooterCTA;
 }
 
@@ -289,6 +301,7 @@ export interface SponsorsSection {
     name: string;
     enabled: boolean;
     color?: string;
+    icon?: string;
     logoHeight?: 'sm' | 'md' | 'lg';
     items: Array<{
       name: string;

@@ -16,23 +16,23 @@ export const WhyChooseV2 = ({ data, lpKey, couponCode }: WhyChooseV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <p className="text-center mb-12 md:mb-20 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+        <p className="text-center mt-6 md:mt-8 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           {data.subtitle}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 mt-6 md:mt-8">
           {data.items?.map((item, index) => {
             const IconComp = item.icon
               ? resolveIcon(item.icon, fallbackIcons[index % fallbackIcons.length])
               : fallbackIcons[index % fallbackIcons.length];
             return (
-            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300 w-full md:w-[calc(50%-12px)]">
               <div className="flex justify-center mb-5">
                 <IconBadgeV2 icon={IconComp} />
               </div>

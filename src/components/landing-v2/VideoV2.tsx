@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
 import { LPContent } from "@/lib/cms-v2/cms-types";
+import { getEmbedUrlV2, getYouTubeThumbnail } from "@/lib/cms-v2/video-utils-v2";
 import { SectionCTAV2 } from "./SectionCTAV2";
 
 type VideoV2Props = {
@@ -9,48 +10,23 @@ type VideoV2Props = {
   couponCode?: string;
 };
 
-const convertToEmbedUrl = (url: string): string => {
-  if (!url) return '';
-
-  // YouTube: suporta watch, youtu.be, shorts, embed
-  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-  const youtubeMatch = url.match(youtubeRegex);
-  if (youtubeMatch) {
-    return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1`;
-  }
-
-  // Vimeo: vimeo.com/ID -> player.vimeo.com/video/ID
-  const vimeoRegex = /vimeo\.com\/(\d+)/;
-  const vimeoMatch = url.match(vimeoRegex);
-  if (vimeoMatch) {
-    return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
-  }
-
-  return url;
-};
-
-const getYouTubeThumbnail = (url: string): string | null => {
-  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-  const match = url.match(youtubeRegex);
-  return match ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg` : null;
-};
-
 export const VideoV2 = ({ data, lpKey, couponCode }: VideoV2Props) => {
   const [playing, setPlaying] = useState(false);
 
   if (!data || data.enabled === false) return null;
 
-  const embedUrl = convertToEmbedUrl(data.url || '');
+  const rawEmbed = getEmbedUrlV2(data.url || '');
+  const embedUrl = rawEmbed ? `${rawEmbed}${rawEmbed.includes('?') ? '&' : '?'}autoplay=1` : '';
   const thumbnail = getYouTubeThumbnail(data.url || '');
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <p className="mb-12 md:mb-16 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+        <p className="mt-6 md:mt-8 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           {data.subtitle}
         </p>
 

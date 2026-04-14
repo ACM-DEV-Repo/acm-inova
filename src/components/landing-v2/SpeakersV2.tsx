@@ -122,18 +122,18 @@ export const SpeakersV2 = memo(({ data, lpKey, couponCode }: Props) => {
   const isFeaturedLayout = data.layout === 'featured';
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         {(data.title || data.subtitle) && (
-          <div className="text-center mb-12 md:mb-20">
+          <div className="text-center">
             {data.title && (
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ds-color-title))]">
                 {data.title}
               </h2>
             )}
             {data.subtitle && (
-              <p className="text-muted-foreground text-lg md:text-xl mt-4 max-w-3xl mx-auto">
+              <p className="text-muted-foreground text-lg md:text-xl mt-6 md:mt-8 max-w-3xl mx-auto">
                 {renderRichText(data.subtitle)}
               </p>
             )}
@@ -142,18 +142,19 @@ export const SpeakersV2 = memo(({ data, lpKey, couponCode }: Props) => {
 
         {/* Grid */}
         <div
-          className={`grid gap-6 md:gap-8 ${
-            isFeaturedLayout
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-          }`}
+          className={`flex flex-wrap justify-center gap-6 md:gap-8`}
         >
           {data.items.map((speaker, index) => (
-            <SpeakerCard
-              key={`speaker-${index}`}
-              speaker={speaker}
-              isFeatured={isFeaturedLayout && index === 0}
-            />
+            <div key={`speaker-${index}`} className={
+              isFeaturedLayout
+                ? 'w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)]'
+                : 'w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(25%-18px)]'
+            }>
+              <SpeakerCard
+                speaker={speaker}
+                isFeatured={isFeaturedLayout && index === 0}
+              />
+            </div>
           ))}
         </div>
 

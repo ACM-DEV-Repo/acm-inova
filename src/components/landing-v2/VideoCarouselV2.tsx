@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Play } from "lucide-react";
 import { LPContent } from "@/lib/cms-v2/cms-types";
-import { getEmbedUrlV2 } from "@/lib/cms-v2/video-utils-v2";
+import { getEmbedUrlV2, getYouTubeThumbnail } from "@/lib/cms-v2/video-utils-v2";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { SectionCTAV2 } from "./SectionCTAV2";
 import {
@@ -16,12 +16,6 @@ type VideoCarouselV2Props = {
   data: LPContent["videoCarousel"];
   lpKey: string;
   couponCode?: string;
-};
-
-const getYouTubeThumbnail = (url: string): string | null => {
-  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-  const match = url.match(youtubeRegex);
-  return match ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg` : null;
 };
 
 const VideoCard = ({ item, index }: { item: { title: string; url: string }; index: number }) => {
@@ -83,15 +77,15 @@ export const VideoCarouselV2 = ({ data, lpKey, couponCode }: VideoCarouselV2Prop
   if (!data?.items || data.items.length === 0) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
         <Carousel
           opts={{ align: "start" }}
-          className="w-full max-w-7xl mx-auto mt-8 md:mt-12"
+          className="w-full max-w-7xl mx-auto mt-6 md:mt-8"
         >
           <CarouselContent className="py-4">
             {data.items.map((item, index) => (
