@@ -246,8 +246,8 @@ export default function LandingPagesV2() {
         {/* Header */}
         <AdminPageHeader
           icon={LayoutTemplate}
-          title="Landing Pages V2"
-          description="Gerencie suas landing pages"
+          title="Landing Pages"
+          description="Crie e gerencie páginas de eventos"
           actions={
             <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
               <DialogTrigger asChild>
@@ -362,7 +362,7 @@ export default function LandingPagesV2() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredLps.map((lp) => (
-              <Card key={lp.id} className="group hover:shadow-[0_8px_32px_hsl(220_20%_60%/0.12),inset_0_1px_0_hsl(0_0%_100%/0.9)] hover:border-black/[0.08] transition-all duration-300">
+              <Card key={lp.id} className="group border border-border/60 shadow-sm hover:shadow-[0_8px_32px_hsl(220_20%_60%/0.15)] hover:border-primary/20 transition-all duration-300">
                 <CardContent className="p-5 space-y-4">
                   {/* Top: Name + Status + Time */}
                   <div className="flex items-start justify-between gap-2">

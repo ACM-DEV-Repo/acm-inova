@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import LandingPageV2 from "./pages/LandingPageV2";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
+import { AdminLayout } from "./components/admin/layout/AdminLayout";
 
 // Admin — lazy loaded (not needed for public LP visitors)
 const LandingPagesV2 = lazy(() => import("./pages/admin/LandingPagesV2"));
@@ -32,8 +33,11 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           {/* LP publica */}
           <Route path="/l/:slug" element={<LandingPageV2 />} />
-          {/* Admin — protegido + lazy */}
-          <Route path="/admin/lps" element={<ProtectedRoute><Suspense fallback={<AdminFallback />}><LandingPagesV2 /></Suspense></ProtectedRoute>} />
+          {/* Admin com sidebar — rotas que usam o layout global */}
+          <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+            <Route path="/admin/lps" element={<Suspense fallback={<AdminFallback />}><LandingPagesV2 /></Suspense>} />
+          </Route>
+          {/* Editor — full-screen próprio, fora do AdminLayout */}
           <Route path="/admin/lps/:lpKey" element={<ProtectedRoute><Suspense fallback={<AdminFallback />}><LPEditorV2 /></Suspense></ProtectedRoute>} />
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
