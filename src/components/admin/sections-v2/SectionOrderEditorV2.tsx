@@ -38,6 +38,7 @@ const SECTION_LABELS: Record<string, string> = {
   kpis: 'Números',
   speakers: 'Palestrantes',
   sponsors: 'Patrocinadores',
+  carousel: 'Carrossel de Imagens',
   about: 'Sobre',
   contact: 'Contato',
   beforeAfter: 'Antes e Depois',

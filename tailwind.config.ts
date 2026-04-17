@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', '"Source Sans 3"', 'system-ui', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        body: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

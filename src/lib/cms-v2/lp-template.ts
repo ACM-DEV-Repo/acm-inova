@@ -276,6 +276,27 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
     footerCta: { ...defaultFooterCta },
   },
 
+  // ==================== CAROUSEL ====================
+  carousel: {
+    enabled: false,
+    title: '',
+    subtitle: '',
+    slides: [],
+    settings: {
+      autoplay: true,
+      interval: 5,
+      transition: 'slide',
+      showDots: true,
+      showArrows: true,
+      height: 'md',
+      rounded: true,
+      overlay: true,
+      overlayOpacity: 40,
+      pauseOnHover: true,
+    },
+    footerCta: { ...defaultFooterCta },
+  },
+
   // ==================== ABOUT ====================
   about: {
     enabled: true,

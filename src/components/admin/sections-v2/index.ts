@@ -28,4 +28,5 @@ export { GlobalMenuEditorV2 } from './GlobalMenuEditorV2';
 export { SpeakersEditorV2 } from './SpeakersEditorV2';
 export { SponsorsEditorV2 } from './SponsorsEditorV2';
 export { ScheduleEditorV2 } from './ScheduleEditorV2';
+export { CarouselEditorV2 } from './CarouselEditorV2';
 export type { V2SectionEditorProps } from './types';

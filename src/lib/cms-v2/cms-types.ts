@@ -312,6 +312,32 @@ export interface SponsorsSection {
   footerCta?: SectionFooterCTA;
 }
 
+export interface CarouselSection {
+  enabled?: boolean;
+  title: string;
+  subtitle?: string;
+  slides: Array<{
+    image: string;
+    title?: string;
+    description?: string;
+    cta?: { text: string; link: string; enabled: boolean };
+    overlayPosition?: 'left' | 'center' | 'right' | 'bottom';
+  }>;
+  settings: {
+    autoplay: boolean;
+    interval: number; // seconds
+    transition: 'slide' | 'fade';
+    showDots: boolean;
+    showArrows: boolean;
+    height: 'sm' | 'md' | 'lg' | 'xl';
+    rounded: boolean;
+    overlay: boolean;
+    overlayOpacity: number; // 0-100
+    pauseOnHover: boolean;
+  };
+  footerCta?: SectionFooterCTA;
+}
+
 export interface FooterSection {
   enabled?: boolean;
   logo: string;
@@ -439,6 +465,7 @@ export interface LPContent {
   kpis: KpisSection;
   speakers: SpeakersSection;
   sponsors: SponsorsSection;
+  carousel: CarouselSection;
   about: AboutSection;
   contact: ContactSection;
   beforeAfter: BeforeAfterSection;

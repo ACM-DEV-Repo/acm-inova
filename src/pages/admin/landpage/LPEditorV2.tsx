@@ -47,6 +47,7 @@ import {
   Trophy,
   CalendarDays,
   Rocket,
+  Images,
 } from 'lucide-react';
 import type { LPStatus } from '@/lib/cms-v2/cms-types';
 import { toast } from 'sonner';
@@ -85,6 +86,7 @@ import {
   SpeakersEditorV2,
   SponsorsEditorV2,
   ScheduleEditorV2,
+  CarouselEditorV2,
 } from '@/components/admin/sections-v2';
 
 // ============================================================
@@ -132,6 +134,7 @@ const SECTIONS: SectionGroup[] = [
       { key: 'kpis', label: 'Números', icon: BarChart3 },
       { key: 'speakers', label: 'Palestrantes', icon: Mic2 },
       { key: 'sponsors', label: 'Patrocinadores', icon: Trophy },
+      { key: 'carousel', label: 'Carrossel de Imagens', icon: Images },
       { key: 'about', label: 'Sobre', icon: Info },
       { key: 'contact', label: 'Contato', icon: Mail },
       { key: 'beforeAfter', label: 'Antes e Depois', icon: ImageIcon },
@@ -267,6 +270,7 @@ export default function LPEditorV2() {
       case 'form': return <FormEditorV2 {...editorProps} />;
       case 'speakers': return <SpeakersEditorV2 {...editorProps} />;
       case 'sponsors': return <SponsorsEditorV2 {...editorProps} />;
+      case 'carousel': return <CarouselEditorV2 {...editorProps} />;
       case 'schedule': return <ScheduleEditorV2 {...editorProps} />;
       case 'tracking': return <TrackingEditorV2 {...editorProps} />;
       case 'seo': return <SEOEditorV2 {...editorProps} />;
