@@ -20,7 +20,17 @@ export const BackgroundRemoverV2 = ({ items, onSaved, onRefresh }: BackgroundRem
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  // Cleanup blob URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (original?.startsWith('blob:')) URL.revokeObjectURL(original);
+      if (result?.startsWith('blob:')) URL.revokeObjectURL(result);
+    };
+  }, [original, result]);
+
   const processImage = useCallback(async (source: string | File) => {
+    if (original?.startsWith('blob:')) URL.revokeObjectURL(original);
+    if (result?.startsWith('blob:')) URL.revokeObjectURL(result);
     const objectUrl = typeof source === 'string' ? source : URL.createObjectURL(source);
     setOriginal(objectUrl);
     setResult(null);
@@ -85,6 +95,8 @@ export const BackgroundRemoverV2 = ({ items, onSaved, onRefresh }: BackgroundRem
   };
 
   const reset = () => {
+    if (original?.startsWith('blob:')) URL.revokeObjectURL(original);
+    if (result?.startsWith('blob:')) URL.revokeObjectURL(result);
     setOriginal(null);
     setResult(null);
     setStage('pick');

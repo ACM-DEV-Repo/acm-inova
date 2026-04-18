@@ -1,4 +1,4 @@
-/* HeroBackgroundType is used via the BACKGROUNDS map key lookup */
+import { memo } from 'react';
 
 const SharedStyles = () => (
   <style>{`
@@ -398,7 +398,6 @@ export const HERO_BACKGROUND_OPTIONS: { value: string; label: string; descriptio
 ];
 
 interface Props { type: string }
-import { memo } from 'react';
 export const HeroAnimatedBackground = memo(({ type }: Props) => {
   const C = BACKGROUNDS[type];
   return C ? <C /> : null;

@@ -26,6 +26,14 @@ serve(async (req) => {
       });
     }
 
+    // Payload size limit (5MB max)
+    const contentLength = parseInt(req.headers.get('content-length') || '0');
+    if (contentLength > 5 * 1024 * 1024) {
+      return new Response(JSON.stringify({ error: 'Payload too large (max 5MB)' }), {
+        status: 413, headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+
     const { image, mimeType, preset } = await req.json();
 
     if (!image || !preset) {
@@ -33,6 +41,17 @@ serve(async (req) => {
         status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
       });
     }
+
+    // Validate base64 size (max ~4MB image)
+    if (image.length > 6_800_000) {
+      return new Response(JSON.stringify({ error: 'Image too large' }), {
+        status: 413, headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Whitelist mimeType
+    const ALLOWED_MIMES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    const safeMime = ALLOWED_MIMES.includes(mimeType) ? mimeType : 'image/png';
 
     const prompt = PRESETS[preset];
     if (!prompt) {
@@ -47,7 +66,7 @@ serve(async (req) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [
-          { inlineData: { mimeType: mimeType || 'image/png', data: image } },
+          { inlineData: { mimeType: safeMime, data: image } },
           { text: prompt },
         ]}],
         generationConfig: { responseModalities: ['IMAGE', 'TEXT'] },
