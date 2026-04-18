@@ -24,12 +24,16 @@ export const SpeakerPortraitV2 = ({ items, onSaved, onRefresh }: SpeakerPortrait
   const [activePreset, setActivePreset] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  // Cleanup blob URLs
+  // Cleanup blob URLs on unmount
   useEffect(() => {
-    return () => { if (resultUrl?.startsWith('blob:')) URL.revokeObjectURL(resultUrl); };
-  }, [resultUrl]);
+    return () => {
+      if (resultUrl?.startsWith('blob:')) URL.revokeObjectURL(resultUrl);
+      if (originalUrl?.startsWith('blob:')) URL.revokeObjectURL(originalUrl);
+    };
+  }, [resultUrl, originalUrl]);
 
   const selectImage = (item: MediaItem) => {
+    if (originalUrl?.startsWith('blob:')) URL.revokeObjectURL(originalUrl);
     setOriginalUrl(item.public_url);
     setOriginalItem(item);
     setResultUrl(null);
@@ -39,6 +43,7 @@ export const SpeakerPortraitV2 = ({ items, onSaved, onRefresh }: SpeakerPortrait
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith('image/')) {
+      if (originalUrl?.startsWith('blob:')) URL.revokeObjectURL(originalUrl);
       const url = URL.createObjectURL(file);
       setOriginalUrl(url);
       setOriginalItem(null);

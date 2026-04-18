@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import {
   LayoutTemplate, Image, TrendingUp, BarChart3, Settings,
-  ChevronLeft, ChevronRight, LogOut, Menu,
+  LogOut, Menu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';

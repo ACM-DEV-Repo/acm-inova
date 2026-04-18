@@ -25,12 +25,9 @@ const OVERLAY_POSITION_CLASSES: Record<string, string> = {
 };
 
 export const CarouselV2 = memo(({ data, lpKey, couponCode }: Props) => {
-  if (!data || data.enabled === false) return null;
-  if (!data.slides || data.slides.length === 0) return null;
-
-  const { settings } = data;
+  const slideCount = data?.slides?.length ?? 0;
+  const settings = data?.settings ?? { autoplay: false, interval: 5, transition: 'slide', showDots: true, showArrows: true, height: 'md', rounded: true, overlay: false, overlayOpacity: 40, pauseOnHover: true };
   const isFade = settings.transition === 'fade';
-  const slideCount = data.slides.length;
 
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -89,6 +86,9 @@ export const CarouselV2 = memo(({ data, lpKey, couponCode }: Props) => {
       clearTimeout(timeout);
     };
   }, [isFade, current, slideCount]);
+
+  // Early returns AFTER all hooks (Rules of Hooks)
+  if (!data || data.enabled === false || slideCount === 0) return null;
 
   const height = HEIGHT_MAP[settings.height] || HEIGHT_MAP.md;
   const borderRadius = settings.rounded ? 'var(--ds-radius, 1rem)' : '0';
