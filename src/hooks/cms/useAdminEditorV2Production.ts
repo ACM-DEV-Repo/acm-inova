@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { LPContent } from '@/lib/cms-v2/cms-types';
 import { useCMSSync } from './useCMSSync';
+import { ensureAllSections } from '@/lib/cms-v2/lp-template';
 
 type SaveStatus = 'idle' | 'unsaved' | 'saving' | 'success' | 'error';
 
@@ -136,6 +137,12 @@ export const useAdminEditorV2Production = (lpKey: string) => {
     const init = async () => {
       const record = await loadFromDatabase();
       if (record?.content) {
+        // Gabarito: garante que TODAS as seções existem no content e no sectionOrder
+        const needsSave = ensureAllSections(record.content);
+        if (needsSave) {
+          // Salva silenciosamente pra alinhar o banco com o gabarito
+          await persistToDatabase(record.content);
+        }
         setDraft(record.content);
         draftRef.current = record.content;
         serverContentRef.current = record.content;

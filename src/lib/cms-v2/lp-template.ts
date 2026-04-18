@@ -520,6 +520,41 @@ export const getNewLPContent = (): LPContent => {
 };
 
 /**
+ * Garante que uma LP existente tem TODAS as seções do gabarito.
+ * Se faltar alguma seção no content ou no sectionOrder, preenche com default.
+ * Chamado automaticamente ao carregar LP no editor.
+ * Retorna true se houve alteração (precisa salvar).
+ */
+export const ensureAllSections = (content: LPContent): boolean => {
+  const template = getNewLPContent();
+  let changed = false;
+
+  // Preenche seções faltantes no content com default do template
+  const sectionKeys = Object.keys(template).filter(
+    k => !['design', 'seo', 'tracking', 'sectionOrder', 'floatingWhatsapp', 'conversion', 'globalMenu'].includes(k)
+  );
+
+  for (const key of sectionKeys) {
+    if (!(key in content)) {
+      (content as Record<string, unknown>)[key] = (template as Record<string, unknown>)[key];
+      changed = true;
+    }
+  }
+
+  // Preenche sectionOrder com seções faltantes
+  const order = content.sectionOrder || [];
+  for (const key of template.sectionOrder) {
+    if (!order.includes(key)) {
+      order.push(key);
+      changed = true;
+    }
+  }
+  content.sectionOrder = order;
+
+  return changed;
+};
+
+/**
  * Preset "Evento Medico" — ativa apenas secoes relevantes para eventos.
  * Desativa: howItWorks, beforeAfter, process, services, whyChoose, videoCarousel
  */
