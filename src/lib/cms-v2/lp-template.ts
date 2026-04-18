@@ -398,6 +398,7 @@ export const DEFAULT_LP_TEMPLATE: LPContent = {
     'kpis',
     'speakers',
     'sponsors',
+    'carousel',
     'about',
     'faq',
     'form',
@@ -547,7 +548,7 @@ export const getEventoMedicoContent = (): LPContent => {
   // Ordem otimizada para evento
   content.sectionOrder = [
     'hero', 'kpis', 'speakers', 'schedule', 'forWhom',
-    'plans', 'sponsors', 'testimonials', 'about', 'faq',
+    'plans', 'sponsors', 'carousel', 'testimonials', 'about', 'faq',
     'ctaFinal', 'contact',
   ];
   // Design: preset summit-saude por padrao
