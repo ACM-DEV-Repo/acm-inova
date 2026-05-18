@@ -1,5 +1,6 @@
 import { LPContent } from "@/lib/cms-v2/cms-types";
 import { applyUTMv2, applyCoupon } from "@/lib/cms-v2/utm-v2";
+import { safeUrl } from "@/lib/cms-v2/safe-url";
 import { cn } from "@/lib/utils";
 
 type SectionCTAV2Props = {
@@ -13,12 +14,12 @@ type SectionCTAV2Props = {
 export const SectionCTAV2 = ({ data, className, lpKey, couponCode }: SectionCTAV2Props) => {
   if (!data?.enabled) return null;
 
-  const href = applyCoupon(applyUTMv2(data.link, lpKey), couponCode);
+  const href = applyCoupon(applyUTMv2(safeUrl(data.link), lpKey), couponCode);
 
   return (
     <div
       className={cn(
-        "w-full flex justify-center py-10 md:py-12 relative z-10",
+        "w-full flex justify-center pt-10 md:pt-12 pb-0 relative z-10",
         data.mobileHidden && "hidden md:flex",
         className
       )}

@@ -240,6 +240,102 @@ const DESIGN_PRESETS: DesignPreset[] = [
       fontFamily: 'Inter',
     }
   },
+  {
+    id: 'tech-conference',
+    name: 'Conferência Tech',
+    description: 'Preto profundo + Violet elétrico — Futurista e bold',
+    preview: 'bg-gradient-to-br from-[#09090B] to-[#18181B]',
+    values: {
+      preset: 'tech-conference',
+      primaryColor: '#8B5CF6',
+      secondaryColor: '#A78BFA',
+      backgroundColor: '#09090B',
+      buttonColor: '#8B5CF6',
+      titleColor: '#FAFAFA',
+      borderColor: '#3F3F46',
+      iconColor: '#A78BFA',
+      starColor: '#FBBF24',
+      textPrimaryColor: '#FAFAFA',
+      textSecondaryColor: '#A1A1AA',
+      gradient: { from: '#09090B', to: '#18181B' },
+      glassIntensity: 0.14,
+      cardRoundness: 'leve' as const,
+      verticalSpacing: 'medium' as const,
+      fontFamily: 'Montserrat',
+    }
+  },
+  {
+    id: 'health-trust',
+    name: 'Saúde & Confiança',
+    description: 'Branco clínico + Azul médico — Clean e confiável',
+    preview: 'bg-gradient-to-br from-[#FFFFFF] to-[#F0F4F8]',
+    values: {
+      preset: 'health-trust',
+      primaryColor: '#0369A1',
+      secondaryColor: '#10B981',
+      backgroundColor: '#FFFFFF',
+      buttonColor: '#0369A1',
+      titleColor: '#0C4A6E',
+      borderColor: '#BAE6FD',
+      iconColor: '#0369A1',
+      starColor: '#F59E0B',
+      textPrimaryColor: '#0C4A6E',
+      textSecondaryColor: '#64748B',
+      gradient: { from: '#FFFFFF', to: '#F0F4F8' },
+      glassIntensity: 0.50,
+      cardRoundness: 'full' as const,
+      verticalSpacing: 'medium' as const,
+      fontFamily: 'Nunito',
+    }
+  },
+  {
+    id: 'workshop-energy',
+    name: 'Workshop Intensivo',
+    description: 'Laranja vibrante + Dark — Energia e ação',
+    preview: 'bg-gradient-to-br from-[#1C1917] to-[#292524]',
+    values: {
+      preset: 'workshop-energy',
+      primaryColor: '#F97316',
+      secondaryColor: '#FB923C',
+      backgroundColor: '#1C1917',
+      buttonColor: '#F97316',
+      titleColor: '#FAFAF9',
+      borderColor: '#44403C',
+      iconColor: '#FB923C',
+      starColor: '#FBBF24',
+      textPrimaryColor: '#FAFAF9',
+      textSecondaryColor: '#A8A29E',
+      gradient: { from: '#1C1917', to: '#292524' },
+      glassIntensity: 0.14,
+      cardRoundness: 'leve' as const,
+      verticalSpacing: 'small' as const,
+      fontFamily: 'Poppins',
+    }
+  },
+  {
+    id: 'editorial-modern',
+    name: 'Editorial Moderno',
+    description: 'Creme editorial + Preto tipográfico — Sofisticado',
+    preview: 'bg-gradient-to-br from-[#FAFAF8] to-[#F5F5F0]',
+    values: {
+      preset: 'editorial-modern',
+      primaryColor: '#18181B',
+      secondaryColor: '#71717A',
+      backgroundColor: '#FAFAF8',
+      buttonColor: '#18181B',
+      titleColor: '#09090B',
+      borderColor: '#D4D4D8',
+      iconColor: '#18181B',
+      starColor: '#D4A574',
+      textPrimaryColor: '#09090B',
+      textSecondaryColor: '#52525B',
+      gradient: { from: '#FAFAF8', to: '#F5F5F0' },
+      glassIntensity: 0.55,
+      cardRoundness: 'leve' as const,
+      verticalSpacing: 'large' as const,
+      fontFamily: 'Raleway',
+    }
+  },
 ];
 
 // ============================================================
@@ -533,22 +629,7 @@ export const DesignEditorV2 = memo(({ draft, updateField, updateSection }: V2Sec
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-foreground text-xs">Espacamento Vertical</Label>
-                <Select
-                  value={design?.verticalSpacing || 'medium'}
-                  onValueChange={(v) => updateDesignField('verticalSpacing', v as DesignSettings['verticalSpacing'])}
-                >
-                  <SelectTrigger className="input-admin">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="small">Compacto</SelectItem>
-                    <SelectItem value="medium">Medio</SelectItem>
-                    <SelectItem value="large">Espacoso</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              {/* Espaçamento vertical fixo em 100px — controlado pelo CSS global */}
 
               <div className="space-y-2">
                 <Label className="text-foreground text-xs">Fonte</Label>

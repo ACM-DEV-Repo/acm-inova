@@ -20,15 +20,15 @@ export const KPIsV2 = ({ data, lpKey, couponCode }: KPIsV2Props) => {
   if (enabledKpis.length === 0) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
           {enabledKpis.map((kpi, idx) => {
             const IconComp = kpi.icon
               ? resolveIcon(kpi.icon, fallbackIcons[idx % fallbackIcons.length])
               : fallbackIcons[idx % fallbackIcons.length];
             return (
-            <div key={idx} className="text-center glass-card p-10 md:p-14 hover:scale-[1.03] transition-transform duration-300">
+            <div key={idx} className="text-center glass-card p-10 md:p-14 hover:scale-[1.03] transition-transform duration-300 w-full md:w-[calc(33.33%-28px)]">
               <div className="flex justify-center mb-5">
                 <IconBadgeV2 icon={IconComp} size="lg" />
               </div>

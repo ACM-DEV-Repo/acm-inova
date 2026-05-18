@@ -31,3 +31,12 @@ export function getEmbedUrlV2(url: string): string {
 
   return '';
 }
+
+/**
+ * Extrai thumbnail do YouTube a partir de URL embed ou original
+ */
+export function getYouTubeThumbnail(url: string): string {
+  if (!url) return '';
+  const match = url.match(/(?:embed\/|watch\?v=|youtu\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);
+  return match ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg` : '';
+}

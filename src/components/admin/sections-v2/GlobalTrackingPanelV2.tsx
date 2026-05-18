@@ -82,6 +82,8 @@ export const GlobalTrackingPanelV2 = memo(() => {
     setIsSaving(false);
   };
 
+  const [open, setOpen] = useState(false);
+
   // Verifica se algum pixel global está configurado
   const hasAnyGlobal = PIXEL_PLATFORMS.some(p => tracking[p.key]?.trim());
 
@@ -97,18 +99,29 @@ export const GlobalTrackingPanelV2 = memo(() => {
   }
 
   return (
-    <div className="bg-card rounded-2xl p-6 space-y-5">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+    <div className="bg-card rounded-2xl p-4 md:p-6">
+      {/* Header — clicável pra expandir */}
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between"
+      >
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
             <Activity className="h-5 w-5 text-primary" />
           </div>
-          <div>
+          <div className="text-left">
             <h3 className="text-sm font-semibold text-foreground">Pixels Globais</h3>
-            <p className="text-xs text-muted-foreground">Aplicados a todas as LPs (individual sobrescreve)</p>
+            <p className="text-xs text-muted-foreground">
+              {hasAnyGlobal ? 'Configurado' : 'Nenhum pixel configurado'} · Clique para {open ? 'fechar' : 'abrir'}
+            </p>
           </div>
         </div>
+        <svg className={`h-4 w-4 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+
+      {!open ? null : (<div className="space-y-5 mt-5">
+      <div className="flex justify-end">
         <Button
           size="sm"
           onClick={handleSave}
@@ -174,6 +187,8 @@ export const GlobalTrackingPanelV2 = memo(() => {
           );
         })}
       </div>
+    </div>
+    )}
     </div>
   );
 });

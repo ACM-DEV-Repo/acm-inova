@@ -18,11 +18,11 @@ export const FooterV2 = ({ data, lpKey }: FooterV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <footer className="w-full py-16 md:py-24 px-4 md:px-6 border-t border-border backdrop-blur-lg">
+    <footer className="w-full px-4 md:px-6 border-t border-border backdrop-blur-lg">
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
         {(data.logoDesktop || data.logoMobile || data.logo) && (
-          <div className="w-full flex justify-center mb-10 md:mb-12">
+          <div className="w-full flex justify-center">
             <picture>
               {data.logoDesktop && (
                 <source media="(min-width: 768px)" srcSet={data.logoDesktop} />
@@ -41,7 +41,7 @@ export const FooterV2 = ({ data, lpKey }: FooterV2Props) => {
 
         {/* Navigation Links */}
         {data.links && data.links.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8 md:mb-10">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mt-8 md:mt-10">
             {data.links.filter(link => link.enabled !== false).map((link, index) => (
               <a
                 key={index}

@@ -277,7 +277,7 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
   // Success Card View
   if (showSuccessCard) {
     return (
-      <section className="w-full py-16 md:py-24 px-4 md:px-6">
+      <section className="w-full px-4 md:px-6">
         <div className="max-w-2xl mx-auto">
           <div className="glass-card p-10 md:p-16 text-center">
             {data?.successAction?.successImage ? (
@@ -302,17 +302,17 @@ export const FormV2 = ({ data, lpKey, couponCode }: FormV2Props) => {
   }
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data?.title || 'Assine agora'}
         </h2>
 
-        <p className="text-base md:text-lg lg:text-xl text-muted-foreground text-center mb-8 md:mb-12 max-w-2xl mx-auto">
+        <p className="text-base md:text-lg lg:text-xl text-muted-foreground text-center mt-6 md:mt-8 max-w-2xl mx-auto">
           {data?.subtitle || 'Preencha o formulário e comece hoje'}
         </p>
 
-        <form onSubmit={handleSubmit} className="glass-strong p-6 md:p-10 lg:p-12">
+        <form onSubmit={handleSubmit} className="glass-strong p-6 md:p-10 lg:p-12 mt-6 md:mt-8">
           {fields.length > 0 ? (
             <div className="flex flex-wrap gap-4 mb-6">
               {fields.map((field: FormField) => (

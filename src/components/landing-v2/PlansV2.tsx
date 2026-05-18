@@ -1,5 +1,6 @@
 import { LPContent, ConversionSettings } from "@/lib/cms-v2/cms-types";
 import { applyUTMv2, applyCoupon } from "@/lib/cms-v2/utm-v2";
+import { safeUrl } from "@/lib/cms-v2/safe-url";
 import { resolveIcon } from "@/lib/cms-v2/iconResolver";
 import { Check, Package } from "lucide-react";
 import { SectionCTAV2 } from "./SectionCTAV2";
@@ -17,9 +18,9 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
@@ -28,7 +29,7 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
           <CountdownTimerV2 settings={conversion.countdown} lpKey={lpKey} />
         )}
 
-        <div className={`grid grid-cols-1 gap-6 md:gap-8 mt-8 md:mt-12 ${
+        <div className={`grid grid-cols-1 gap-6 md:gap-8 mt-6 md:mt-8 ${
           (() => {
             const count = data.items?.length ?? 0;
             if (count === 1) return 'md:grid-cols-1 max-w-sm mx-auto';
@@ -104,12 +105,18 @@ export const PlansV2 = ({ data, lpKey, couponCode, conversion }: PlansV2Props) =
 
                 <div className="flex-grow" />
 
-                <a
-                  href={applyCoupon(applyUTMv2(plan.link, lpKey), couponCode)}
-                  className="w-full text-center py-4 font-semibold text-base transition-transform duration-300 mt-6 rounded-full bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_hsl(var(--ds-color-accent)/0.4)]"
-                >
-                  {plan.ctaText || 'Assinar'}
-                </a>
+                {safeUrl(plan.link) ? (
+                  <a
+                    href={applyCoupon(applyUTMv2(safeUrl(plan.link), lpKey), couponCode)}
+                    className="w-full text-center py-4 font-semibold text-base transition-transform duration-300 mt-6 rounded-full bg-[hsl(var(--ds-color-btn))] text-[hsl(var(--ds-color-btn-text))] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_hsl(var(--ds-color-accent)/0.4)]"
+                  >
+                    {plan.ctaText || 'Assinar'}
+                  </a>
+                ) : (
+                  <span className="w-full text-center py-4 font-semibold text-base mt-6 rounded-full bg-[hsl(var(--ds-color-btn)/0.3)] text-muted-foreground cursor-not-allowed">
+                    {plan.ctaText || 'Em breve'}
+                  </span>
+                )}
               </div>
             );
           })}

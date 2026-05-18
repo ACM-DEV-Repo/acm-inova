@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { supabase } from "@/integrations/supabase/client";
 
 export async function uploadImage(file: File): Promise<string> {
@@ -8,12 +9,12 @@ export async function uploadImage(file: File): Promise<string> {
   const { data, error } = await supabase.storage
     .from('cms-assets')
     .upload(filePath, file, {
-      cacheControl: '3600',
+      cacheControl: '31536000',
       upsert: false
     });
 
   if (error) {
-    console.error('Upload error:', error);
+    Sentry.captureException(error, { extra: { context: 'uploadImage', filePath } });
     throw error;
   }
 

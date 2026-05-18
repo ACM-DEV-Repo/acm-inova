@@ -27,6 +27,7 @@ import { FooterV2 } from '@/components/landing-v2/FooterV2';
 import { FormV2 } from '@/components/landing-v2/FormV2';
 import { SpeakersV2 } from '@/components/landing-v2/SpeakersV2';
 import { SponsorsV2 } from '@/components/landing-v2/SponsorsV2';
+import { CarouselV2 } from '@/components/landing-v2/CarouselV2';
 import { WhatsAppButtonV2 } from '@/components/landing-v2/WhatsAppButtonV2';
 import { TrackingHeadV2 } from '@/components/landing-v2/TrackingHeadV2';
 import { ExitIntentPopupV2 } from '@/components/landing-v2/ExitIntentPopupV2';
@@ -59,6 +60,7 @@ const renderSection = (sectionId: string, content: LPContent, lpKey: string, ind
     case 'form': return <FormV2 key={key} data={content.form} lpKey={lpKey} couponCode={couponCode} />;
     case 'speakers': return <SpeakersV2 key={key} data={content.speakers} lpKey={lpKey} couponCode={couponCode} />;
     case 'sponsors': return <SponsorsV2 key={key} data={content.sponsors} lpKey={lpKey} couponCode={couponCode} />;
+    case 'carousel': return <CarouselV2 key={key} data={content.carousel} lpKey={lpKey} couponCode={couponCode} />;
     default: return null;
   }
 };
@@ -90,15 +92,14 @@ export const LandingPageV2Content = () => {
   return (
     <main className="min-h-screen lp-v2-content" style={gradientStyle}>
       <style>{`
-        .lp-v2-content > div > section {
-          padding-top: var(--ds-section-py, 4rem);
-          padding-bottom: var(--ds-section-py, 4rem);
+        .lp-v2-content section,
+        .lp-v2-content footer {
+          padding-top: 100px;
+          padding-bottom: 100px;
         }
-        @media (min-width: 768px) {
-          .lp-v2-content > div > section {
-            padding-top: calc(var(--ds-section-py, 4rem) * 1.5);
-            padding-bottom: calc(var(--ds-section-py, 4rem) * 1.5);
-          }
+        .lp-v2-content section > div,
+        .lp-v2-content footer > div {
+          display: flow-root;
         }
       `}</style>
       <TrackingHeadV2 tracking={resolveTrackingV2(content.tracking, globalTracking)} seo={content.seo} lpKey={lpKey} />
@@ -107,7 +108,11 @@ export const LandingPageV2Content = () => {
         {sectionOrder.map((sectionId, index) => {
           const section = renderSection(sectionId, content, lpKey, index);
           if (!section) return null;
-          return <div key={`anchor-${sectionId}-${index}`} id={sectionId}>{section}</div>;
+          return (
+            <div key={`anchor-${sectionId}-${index}`} id={sectionId}>
+              {section}
+            </div>
+          );
         })}
       </div>
       <FooterV2 data={content.footer} lpKey={lpKey} />

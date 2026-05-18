@@ -21,13 +21,13 @@ export const HowItWorksV2 = ({ data, lpKey, couponCode }: HowItWorksV2Props) => 
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-20 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 mt-6 md:mt-8">
           {data.steps?.map((step, index) => {
             const iconName = getStepIcon(step);
             const IconComp = iconName
@@ -35,7 +35,7 @@ export const HowItWorksV2 = ({ data, lpKey, couponCode }: HowItWorksV2Props) => 
               : fallbackIcons[index % fallbackIcons.length];
             const stepText = getStepText(step);
             return (
-            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-transform duration-300">
+            <div key={index} className="glass-card p-8 md:p-10 text-center hover:scale-[1.02] transition-transform duration-300 w-full md:w-[calc(33.33%-16px)]">
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[hsl(var(--ds-color-icon)/0.15)] border-2 border-[hsl(var(--ds-color-icon)/0.3)] flex items-center justify-center mx-auto mb-6">
                 <IconComp size={32} className="text-[hsl(var(--ds-color-icon))]" />
               </div>

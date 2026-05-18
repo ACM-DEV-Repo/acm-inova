@@ -12,13 +12,13 @@ export const ContactV2 = ({ data, lpKey }: ContactV2Props) => {
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6">
+    <section className="w-full px-4 md:px-6">
       <div className="max-w-4xl mx-auto text-center glass-card p-10 md:p-16 lg:p-20">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-10 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <p className="mb-10 md:mb-14 text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-6 md:mt-8 text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           {data.subtitle}
         </p>
 

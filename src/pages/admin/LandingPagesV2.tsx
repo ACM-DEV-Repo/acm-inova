@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAllLPs, createLP, deleteLP, duplicateLP, updateLPStatus, updateLPSettings } from '@/lib/cms-v2/cms-api';
-import { getNewLPContent } from '@/lib/cms-v2/lp-template';
+import { getNewLPContent, getEventoMedicoContent } from '@/lib/cms-v2/lp-template';
 import { LPRecord, LPStatus } from '@/lib/cms-v2/cms-types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -52,6 +52,8 @@ export default function LandingPagesV2() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
   const [newLp, setNewLp] = useState({ name: '', slug: '', lp_key: '' });
+  const [selectedTemplate, setSelectedTemplate] = useState<'generico' | 'evento'>('generico');
+  const [publishConfirmLp, setPublishConfirmLp] = useState<LPRecord | null>(null);
 
   /** Auto-gera slug e lp_key a partir do nome */
   const handleNameChange = (name: string) => {
@@ -100,7 +102,7 @@ export default function LandingPagesV2() {
     }
 
     setIsCreating(true);
-    const content = getNewLPContent();
+    const content = selectedTemplate === 'evento' ? getEventoMedicoContent() : getNewLPContent();
 
     const success = await createLP({
       lp_key: newLp.lp_key,
@@ -244,8 +246,8 @@ export default function LandingPagesV2() {
         {/* Header */}
         <AdminPageHeader
           icon={LayoutTemplate}
-          title="Landing Pages V2"
-          description="Gerencie suas landing pages"
+          title="Landing Pages"
+          description="Crie e gerencie páginas de eventos"
           actions={
             <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
               <DialogTrigger asChild>
@@ -265,6 +267,39 @@ export default function LandingPagesV2() {
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
+                  {/* Template selector */}
+                  <div className="space-y-2">
+                    <Label>Tipo de LP</Label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTemplate('generico')}
+                        className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                          selectedTemplate === 'generico'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-muted hover:border-muted-foreground/30'
+                        }`}
+                      >
+                        <FileText className="h-5 w-5 mb-2 text-primary" />
+                        <span className="block text-sm font-semibold">Serviço / Produto</span>
+                        <span className="block text-xs text-muted-foreground mt-1">Todas as seções disponíveis</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTemplate('evento')}
+                        className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                          selectedTemplate === 'evento'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-muted hover:border-muted-foreground/30'
+                        }`}
+                      >
+                        <Rocket className="h-5 w-5 mb-2 text-primary" />
+                        <span className="block text-sm font-semibold">Evento / Congresso</span>
+                        <span className="block text-xs text-muted-foreground mt-1">Programação, palestrantes, inscrição</span>
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="name">Nome da LP</Label>
                     <Input
@@ -327,7 +362,7 @@ export default function LandingPagesV2() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredLps.map((lp) => (
-              <Card key={lp.id} className="group hover:shadow-[0_8px_32px_hsl(220_20%_60%/0.12),inset_0_1px_0_hsl(0_0%_100%/0.9)] hover:border-black/[0.08] transition-all duration-300">
+              <Card key={lp.id} className="group border border-border/60 shadow-sm hover:shadow-[0_8px_32px_hsl(220_20%_60%/0.15)] hover:border-primary/20 transition-all duration-300">
                 <CardContent className="p-5 space-y-4">
                   {/* Top: Name + Status + Time */}
                   <div className="flex items-start justify-between gap-2">
@@ -361,12 +396,12 @@ export default function LandingPagesV2() {
                     />
                   </div>
 
-                  {/* Publish button (when draft) */}
+                  {/* Publish button (when draft) — opens confirmation */}
                   {lp.status === 'draft' && (
                     <Button
                       size="sm"
                       className="w-full h-9 text-xs gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white"
-                      onClick={() => handleStatusChange(lp.lp_key, 'active')}
+                      onClick={() => setPublishConfirmLp(lp)}
                     >
                       <Rocket className="h-3.5 w-3.5" />
                       Publicar
@@ -425,7 +460,7 @@ export default function LandingPagesV2() {
                           </DropdownMenuItem>
                         )}
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleStatusChange(lp.lp_key, 'active')}>
+                        <DropdownMenuItem onClick={() => setPublishConfirmLp(lp)}>
                           <Check className="w-4 h-4 mr-2" />
                           Marcar Ativo
                         </DropdownMenuItem>
@@ -597,6 +632,70 @@ export default function LandingPagesV2() {
         slug={previewLp?.slug ?? ''}
         lpName={previewLp?.name}
       />
+
+      {/* Publish Confirmation Dialog */}
+      <Dialog open={!!publishConfirmLp} onOpenChange={(open) => !open && setPublishConfirmLp(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Rocket className="h-5 w-5 text-emerald-600" />
+              Publicar "{publishConfirmLp?.name}"?
+            </DialogTitle>
+            <DialogDescription>
+              A LP ficará acessível publicamente em /l/{publishConfirmLp?.slug}
+            </DialogDescription>
+          </DialogHeader>
+          {(() => {
+            const ct = publishConfirmLp?.content;
+            if (!ct) {
+              return (
+                <p className="text-sm text-amber-600 py-2">
+                  Não foi possível verificar o conteúdo. Confirma que deseja publicar?
+                </p>
+              );
+            }
+            const checks = [
+              { label: 'Título do hero', ok: !!ct.hero?.title?.trim() },
+              { label: 'Imagem do hero', ok: !!ct.hero?.imageDesktop?.trim() },
+              { label: 'CTA com link', ok: !!ct.hero?.ctaPrimary?.link?.trim() && ct.hero.ctaPrimary.link !== '#' },
+              { label: 'SEO título', ok: !!ct.seo?.metaTitle?.trim() },
+            ];
+            const allOk = checks.every(ch => ch.ok);
+            return (
+              <div className="space-y-3 py-2">
+                {checks.map((check, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <div className={`w-2 h-2 rounded-full ${check.ok ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                    <span className={check.ok ? 'text-foreground' : 'text-amber-600'}>{check.label}</span>
+                    <span className="text-xs text-muted-foreground ml-auto">{check.ok ? 'OK' : 'Faltando'}</span>
+                  </div>
+                ))}
+                {!allOk && (
+                  <p className="text-xs text-amber-600 mt-2">
+                    Itens faltando podem afetar a experiência do visitante.
+                  </p>
+                )}
+              </div>
+            );
+          })()}
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancelar</Button>
+            </DialogClose>
+            <Button
+              className="bg-emerald-600 hover:bg-emerald-700 text-white"
+              onClick={async () => {
+                if (publishConfirmLp) {
+                  await handleStatusChange(publishConfirmLp.lp_key, 'active');
+                  setPublishConfirmLp(null);
+                }
+              }}
+            >
+              Publicar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </AdminPageContainer>
   );
 }

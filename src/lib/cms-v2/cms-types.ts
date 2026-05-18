@@ -63,6 +63,8 @@ export type FloatingWhatsappSettings = {
 };
 
 // ========== Section Definitions ==========
+export type HeroBackgroundType = 'image' | 'aurora' | 'gradient-mesh' | 'particles' | 'heartbeat' | 'xray' | 'stethoscope' | 'microscopy' | 'ai' | 'heart';
+
 export interface HeroSection {
   enabled?: boolean;
   title: string;
@@ -72,6 +74,16 @@ export interface HeroSection {
   imageDesktop: string;
   imageMobile: string;
   imagePosition?: 'top' | 'center' | 'bottom';
+  backgroundType?: HeroBackgroundType;
+  heroLogo?: string;
+  tagline?: string;
+  logoHighlight?: {
+    enabled: boolean;
+    color?: string;
+    opacity?: number;
+  };
+  logoShadow?: boolean;
+  logoShadowIntensity?: number;
   footerCta?: SectionFooterCTA;
 }
 
@@ -289,6 +301,7 @@ export interface SponsorsSection {
     name: string;
     enabled: boolean;
     color?: string;
+    icon?: string;
     logoHeight?: 'sm' | 'md' | 'lg';
     items: Array<{
       name: string;
@@ -296,6 +309,32 @@ export interface SponsorsSection {
       url?: string;
     }>;
   }>;
+  footerCta?: SectionFooterCTA;
+}
+
+export interface CarouselSection {
+  enabled?: boolean;
+  title: string;
+  subtitle?: string;
+  slides: Array<{
+    image: string;
+    title?: string;
+    description?: string;
+    cta?: { text: string; link: string; enabled: boolean };
+    overlayPosition?: 'left' | 'center' | 'right' | 'bottom';
+  }>;
+  settings: {
+    autoplay: boolean;
+    interval: number; // seconds
+    transition: 'slide' | 'fade';
+    showDots: boolean;
+    showArrows: boolean;
+    height: 'sm' | 'md' | 'lg' | 'xl';
+    rounded: boolean;
+    overlay: boolean;
+    overlayOpacity: number; // 0-100
+    pauseOnHover: boolean;
+  };
   footerCta?: SectionFooterCTA;
 }
 
@@ -426,6 +465,7 @@ export interface LPContent {
   kpis: KpisSection;
   speakers: SpeakersSection;
   sponsors: SponsorsSection;
+  carousel: CarouselSection;
   about: AboutSection;
   contact: ContactSection;
   beforeAfter: BeforeAfterSection;

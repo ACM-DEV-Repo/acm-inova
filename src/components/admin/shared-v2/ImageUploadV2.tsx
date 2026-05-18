@@ -1,25 +1,47 @@
 import { useState, useRef } from "react";
 import * as Sentry from "@sentry/react";
-import { Upload, X } from "lucide-react";
+import { Upload, X, FolderOpen } from "lucide-react";
 import { uploadImage } from "@/lib/uploadImage";
 import { compressImage } from "@/lib/imageOptimizer";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { MediaLibraryV2 } from "./MediaLibraryV2";
+
+type Shape = 'circle' | 'landscape' | 'square';
+
+const SHAPE_CLASSES: Record<Shape, { container: string; img: string }> = {
+  circle: {
+    container: 'w-[120px] h-[120px] rounded-full',
+    img: 'rounded-full',
+  },
+  landscape: {
+    container: 'w-full max-w-[280px] h-[100px] rounded-lg',
+    img: 'rounded-lg',
+  },
+  square: {
+    container: 'w-[140px] h-[140px] rounded-lg',
+    img: 'rounded-lg',
+  },
+};
 
 interface ImageUploadV2Props {
   value?: string;
   onChange: (url: string) => void;
   label: string;
   recommendedSize?: string;
+  shape?: Shape;
 }
 
-export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: ImageUploadV2Props) => {
+export const ImageUploadV2 = ({ value, onChange, label, recommendedSize, shape = 'circle' }: ImageUploadV2Props) => {
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
   const MAX_FILE_SIZE_MB = 10;
+
+  const shapeStyle = SHAPE_CLASSES[shape] || SHAPE_CLASSES.circle;
 
   const handleFile = async (file: File) => {
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
@@ -30,6 +52,20 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
     if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
       toast.error(`Arquivo muito grande. Máximo: ${MAX_FILE_SIZE_MB}MB`);
       return;
+    }
+
+    // Warn about very small images
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.src = objectUrl;
+    let imgLoaded = false;
+    await new Promise<void>((resolve) => {
+      img.onload = () => { imgLoaded = true; resolve(); };
+      img.onerror = () => resolve();
+    });
+    URL.revokeObjectURL(objectUrl);
+    if (imgLoaded && img.naturalWidth < 200) {
+      toast.warning('Imagem pequena. Recomendado: mínimo 200px de largura.');
     }
 
     setUploading(true);
@@ -101,7 +137,7 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
 
       <div
         className={`
-          relative w-[120px] h-[120px] rounded-full
+          relative ${shapeStyle.container}
           flex items-center justify-center
           border-2 border-dashed transition-all duration-300 cursor-pointer
           bg-black/[0.03] backdrop-blur-sm
@@ -128,7 +164,7 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
             <img
               src={value}
               alt="Preview"
-              className="w-full h-full rounded-full object-cover"
+              className={`w-full h-full object-cover ${shapeStyle.img}`}
             />
             <Button
               variant="destructive"
@@ -158,6 +194,22 @@ export const ImageUploadV2 = ({ value, onChange, label, recommendedSize }: Image
           </div>
         )}
       </div>
+
+      <Button
+        variant="ghost"
+        size="sm"
+        className="text-xs gap-1.5 text-muted-foreground hover:text-foreground"
+        onClick={(e) => { e.stopPropagation(); setLibraryOpen(true); }}
+      >
+        <FolderOpen className="h-3.5 w-3.5" />
+        Biblioteca
+      </Button>
+
+      <MediaLibraryV2
+        open={libraryOpen}
+        onOpenChange={setLibraryOpen}
+        onSelect={(url) => { onChange(url); setLibraryOpen(false); }}
+      />
     </div>
   );
 };

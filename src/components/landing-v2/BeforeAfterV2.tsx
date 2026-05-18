@@ -12,7 +12,7 @@ export const BeforeAfterV2 = ({ data, lpKey, couponCode }: BeforeAfterV2Props) =
   if (!data || data.enabled === false) return null;
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
+    <section className="w-full px-4 md:px-6 relative overflow-hidden">
       {/* Background Image opcional */}
       {(data.imageDesktop || data.imageMobile) && (
         <div className="absolute inset-0 -z-10 opacity-10">
@@ -33,15 +33,15 @@ export const BeforeAfterV2 = ({ data, lpKey, couponCode }: BeforeAfterV2Props) =
       )}
 
       <div className="max-w-7xl mx-auto relative">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 text-[hsl(var(--ds-color-title))] leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[hsl(var(--ds-color-title))] leading-tight">
           {data.title}
         </h2>
 
-        <p className="text-center mb-12 md:mb-20 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+        <p className="text-center mt-6 md:mt-8 text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           {data.subtitle}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-12 mt-6 md:mt-8">
           {data.images?.map((item, index) => (
             <div key={index} className="glass-card p-8 md:p-12 flex flex-col items-center hover:scale-[1.02] transition-transform duration-300">
               <div className="grid grid-cols-2 gap-4 md:gap-8 w-full">

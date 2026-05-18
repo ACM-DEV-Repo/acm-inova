@@ -65,4 +65,14 @@
   color: hsl(var(--ds-color-text));
 }
 
-/* hover-scale e card-hover-effect removidos - efeitos não-premium */
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .glass,
+  .glass-strong {
+    transition: none;
+  }
+  .glass-card:hover {
+    transform: none;
+  }
+}
