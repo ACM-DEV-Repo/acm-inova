@@ -45,9 +45,10 @@ export const fetchLPByRef = async (ref: string): Promise<LPRecord | null> => {
       .from('bd_cms_lp_v2')
       .select('*')
       .or(`lp_key.eq.${ref},slug.eq.${ref}`)
-      .single();
+      .maybeSingle();
 
     if (error) {
+      Sentry.captureException(error, { extra: { context: 'fetchLPByRef', ref } });
       console.error(`[CMS-V2] Erro ao buscar LP (${ref}):`, error);
       return null;
     }
